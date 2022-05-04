@@ -19,5 +19,14 @@
   "bugs": {
     "url": "https://github.com/Kodemia-MusicApp/MusicApp-BackEnd/issues"
   },
-  "homepage": "https://github.com/Kodemia-MusicApp/MusicApp-BackEnd#readme"
+  "homepage": "https://github.com/Kodemia-MusicApp/MusicApp-BackEnd#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "express": "^4.18.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.3.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.16"
+  }
 }
