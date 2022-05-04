@@ -1,0 +1,23 @@
+{
+  "name": "musicapp-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kodemia-MusicApp/MusicApp-BackEnd.git"
+  },
+  "keywords": [
+    "node",
+    "app"
+  ],
+  "author": "@ArnoldEsquivel, @2112miguel, @dragonfire124",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Kodemia-MusicApp/MusicApp-BackEnd/issues"
+  },
+  "homepage": "https://github.com/Kodemia-MusicApp/MusicApp-BackEnd#readme"
+}
