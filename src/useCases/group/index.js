@@ -42,3 +42,15 @@ const update = async (id, nombre, representante, correo, telefono, integrantes, 
     ).exec();
     return updatedGroup;
 };
+
+const del = async (id) => {
+    return await Group.findByIdAndDelete(id).exec();
+};
+
+module.exports = {
+    create,
+    getAll,
+    getByName,
+    update,
+    del,
+}
