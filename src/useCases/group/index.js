@@ -17,3 +17,11 @@ const create = async (nombre, representante, correo, telefono, password, integra
     });
     return await group.save();
 };
+
+const getAll = async () => {
+    return await Group.find({}).exec();
+};
+
+const getByName = async (nombre) => {
+    return await Group.findOne({ nombre }).exec();
+};
