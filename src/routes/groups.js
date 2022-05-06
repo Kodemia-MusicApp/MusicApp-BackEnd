@@ -13,3 +13,16 @@ router.get('/', async (req, res, next) => {
         next(error);
     }
 });
+
+router.get('name', async (req, res, next) => {
+    try {
+        const { name } = req.params;
+        const retrievedGroup = await Group.getByName(name);
+        res.json({
+            success: true,
+            payload: retrievedGroup,
+        });
+    } catch (error) {
+        next(error);
+    }
+});
