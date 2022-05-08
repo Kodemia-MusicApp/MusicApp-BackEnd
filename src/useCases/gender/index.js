@@ -10,3 +10,7 @@ const create = async (nombre) => {
 const getAll = async () => {
     return await Gender.findOne({}).exec();
 };
+
+const getByName = async (nombre) => {
+    return await Gender.findOne({nombre: nombre}).exec();
+};
