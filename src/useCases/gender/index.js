@@ -22,3 +22,7 @@ const update = async (id, nombre) => {
     ).exec();
     return updatedGender
 };
+
+const del = async (id) => {
+    return await Gender.findByIdAndDelete(id).exec();
+};
