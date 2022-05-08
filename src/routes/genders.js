@@ -41,3 +41,20 @@ router.post('/', async (req, res, next) => {
     }
 });
 
+router.put('/:id', async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const { nombre } = req.body;
+        const genderUpdated = await Gender.update(id, {
+            nombre
+        });
+        res.json({
+            success: true,
+            message: 'Genero actualizado exitosamene',
+            payload: genderUpdated,
+        });
+    } catch (error) {
+        next(error);
+    }
+});
+
