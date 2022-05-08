@@ -3,9 +3,11 @@ const app = express();
 const port = 8000;
 const db = require("./src/lib/db");
 const cors = require("cors");
+const apiRouter = require("./src/routes");
 
 app.use(express.json());
 app.use(cors());
+apiRouter(app);
 app.listen(port, () => {
   console.log("Welcome to MusicApp");
 
