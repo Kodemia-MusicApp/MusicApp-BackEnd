@@ -7,3 +7,6 @@ const create = async (nombre) => {
     return await gender.save();
 }
 
+const getAll = async () => {
+    return await Gender.findOne({}).exec();
+};
