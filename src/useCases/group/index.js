@@ -53,4 +53,4 @@ module.exports = {
     getByName,
     update,
     del,
-}
+};

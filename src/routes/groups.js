@@ -26,3 +26,17 @@ router.get('name', async (req, res, next) => {
         next(error);
     }
 });
+
+router.post('/', async (req, res, next) => {
+    try {
+        const { nombre, representante, correo, telefono, password, integrantes, precioHora, zonaServicio, descripcion, genero } = req.body;
+        const groupCreated = await Group.create(nombre, representante, correo, telefono, password, integrantes, precioHora, zonaServicio, descripcion, genero);
+        res.json({
+            success: true,
+            message: 'Grupo creado exitosamente',
+            payload: groupCreated,
+        })
+    } catch (error) {
+        next(error);
+    }
+});
