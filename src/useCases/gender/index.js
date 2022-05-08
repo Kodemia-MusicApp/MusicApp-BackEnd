@@ -8,14 +8,15 @@ const create = async (nombre) => {
 }
 
 const getAll = async () => {
-    return await Gender.findOne({}).exec();
+    return await Gender.find({}).exec();
 };
 
 const getByName = async (nombre) => {
     return await Gender.findOne({nombre: nombre}).exec();
 };
 
-const update = async (id, nombre) => {
+const update = async (id, genderData) => {
+    const { nombre } = genderData;
     const updatedGender = await Gender.findByIdAndUpdate(id,
         { nombre },
         { new: true }
