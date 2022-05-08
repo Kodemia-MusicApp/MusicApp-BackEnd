@@ -21,6 +21,24 @@ const creaMusico = async (
   return await creaMusician.save();
 };
 
+const getByEmail = async (correo) => {
+  const findMusician = await Musicians.findOne({ correo }).exec();
+  return findMusician;
+};
+
+const patch = async (correo, musicianData) => {
+  return await Musicians.findOneAndUpdate(correo, { ...musicianData })
+    .exec()
+    .catch((error) => console.log(error));
+};
+
+const del = async (id) => {
+  return await Musicians.findByIdAndDelete(id).exec();
+};
+
 module.exports = {
   creaMusico,
+  patch,
+  getByEmail,
+  del,
 };

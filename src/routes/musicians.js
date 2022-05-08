@@ -39,12 +39,35 @@ router.get("/", async (req, res, next) => {
   } catch (error) {}
 });
 
-router.get("/:id", async (req, res, next) => {
-  console.log("Entra get id");
+router.get("/:correo", async (req, res, next) => {
+  try {
+    const { correo } = req.params;
+    const musicians = await musician.getByEmail(correo);
+    if (musicians == null) {
+      res.json({
+        success: false,
+      });
+    } else {
+      res.json({
+        success: true,
+      });
+    }
+  } catch (error) {
+    console.log(error);
+  }
 });
 
-router.post("/", async (req, res, next) => {
-  console.log("Entra post");
+router.patch("/:correo", async (req, res, next) => {
+  try {
+    const { correo } = req.params;
+    const updateMusician = await musician.patch(correo, { ...req.body });
+    res.json({
+      succes: true,
+      payload: updateMusician,
+    });
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 module.exports = router;
