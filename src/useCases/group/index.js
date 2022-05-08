@@ -27,6 +27,10 @@ const getByName = async (nombre) => {
     return await Group.findOne({ nombre: nombre }).exec();
 };
 
+const getByEmail = async (email) => {
+    return await Group.findOne({ correo: email }).exec();
+};
+
 const update = async (id, userData) => {
     const { nombre, representante, correo, telefono, integrantes, precioHora, zonaServicio, descripcion, genero } = userData
     const updatedGroup = await Group.findByIdAndUpdate(id, { 
@@ -58,6 +62,7 @@ module.exports = {
     create,
     getAll,
     getByName,
+    getByEmail,
     update,
     del,
     autenticate,
