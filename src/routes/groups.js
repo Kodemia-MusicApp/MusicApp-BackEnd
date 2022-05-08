@@ -40,3 +40,29 @@ router.post('/', async (req, res, next) => {
         next(error);
     }
 });
+
+router.put('/:id', async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const { nombre, representante, correo, telefono, integrantes, precioHora, zonaServicio, descripcion, genero } = req.body;
+        const groupUpdated = await Group.update(id, {
+            nombre,
+            representante,
+            correo,
+            telefono,
+            integrantes,
+            precioHora,
+            zonaServicio,
+            descripcion,
+            genero
+        });
+        res.json({
+            success: true,
+            message: 'Grupo actualizado exitosamente',
+            payload: groupUpdated,
+        })
+    } catch (error) {
+        next(error);
+    }
+});
+
