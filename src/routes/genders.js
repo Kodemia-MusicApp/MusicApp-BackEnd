@@ -58,3 +58,18 @@ router.put('/:id', async (req, res, next) => {
     }
 });
 
+router.delete('/:id', async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const genderDeleted = await Gender.del(id);
+        res.json({
+            success: true,
+            message: 'Genero eliminado exitosamente',
+            payload: genderDeleted,
+        });
+    } catch (error) {
+        next(error);
+    }
+});
+
+module.exports = router;
