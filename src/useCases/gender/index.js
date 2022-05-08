@@ -14,3 +14,11 @@ const getAll = async () => {
 const getByName = async (nombre) => {
     return await Gender.findOne({nombre: nombre}).exec();
 };
+
+const update = async (id, nombre) => {
+    const updatedGender = await Gender.findByIdAndUpdate(id,
+        { nombre },
+        { new: true }
+    ).exec();
+    return updatedGender
+};
