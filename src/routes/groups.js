@@ -66,3 +66,18 @@ router.put('/:id', async (req, res, next) => {
     }
 });
 
+router.delete('/:id', async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const groupDeleted = await Group.del(id);
+        res.json({
+            success: true,
+            message: 'Grupo eliminado exitosamente',
+            payload: groupDeleted,
+        });
+    } catch (error) {
+        next(error);
+    }
+});
+
+module.exports = router;
