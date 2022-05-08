@@ -14,3 +14,16 @@ router.get('/', async (req, res, next) => {
     }
 });
 
+router.get('/:name', async (req, res, next) => {
+    try {
+        const { name } = req.params;
+        const retrievedGender = await Gender.getByName(name)
+        res.json({
+            success: true,
+            payload: retrievedGender,
+        });
+    } catch (error) {
+        next(error);
+    }
+});
+
