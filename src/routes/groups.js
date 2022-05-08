@@ -7,7 +7,22 @@ router.get('/', async (req, res, next) => {
         const groups = await Group.getAll();
         res.json({
             success: true,
+            message: 'Estos son todos los grupos',
             payload: groups,
+        });
+    } catch (error) {
+        next(error);
+    }
+});
+
+router.get('/:email', async (req, res, next) => {
+    try {
+        const { email } = req.params;
+        const retrievedGroup = await Group.getByEmail(email);
+        res.json({
+            success: true,
+            message: 'Este es el grupo por email',
+            payload: retrievedGroup,
         });
     } catch (error) {
         next(error);
@@ -20,6 +35,7 @@ router.get('/:name', async (req, res, next) => {
         const retrievedGroup = await Group.getByName(name);
         res.json({
             success: true,
+            message: 'Este es el grupo por nombre',
             payload: retrievedGroup,
         });
     } catch (error) {
