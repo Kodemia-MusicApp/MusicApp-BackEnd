@@ -1,11 +1,42 @@
 const router = require("express").Router();
 const musician = require("../useCases/musician");
 
+router.post("/", async (req, res, next) => {
+  try {
+    const {
+      nombre,
+      apellidoPaterno,
+      apellidoMaterno,
+      correo,
+      contrasenia,
+      descripcion,
+      tipoMusico,
+    } = req.body;
+    const creaMusician = await musician.creaMusico(
+      nombre,
+      apellidoPaterno,
+      apellidoMaterno,
+      correo,
+      contrasenia,
+      descripcion,
+      tipoMusico
+    );
+    res.json({
+      success: true,
+      payload: creaMusician,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 router.get("/", async (req, res, next) => {
   console.log("entra");
-  res.json({
-    message: "Entra",
-  });
+  try {
+    res.json({
+      message: "Entra",
+    });
+  } catch (error) {}
 });
 
 router.get("/:id", async (req, res, next) => {
