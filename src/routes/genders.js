@@ -27,3 +27,17 @@ router.get('/:name', async (req, res, next) => {
     }
 });
 
+router.post('/', async (req, res, next) => {
+    try {
+        const { nombre } = req.body;
+        const genderCreated = await Gender.create(nombre);
+        res.json({
+            success: true,
+            message: 'Genero creado exitosamente',
+            payload: genderCreated
+        });
+    } catch (error) {
+        next(error);
+    }
+});
+
