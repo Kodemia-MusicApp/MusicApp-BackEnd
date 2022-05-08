@@ -23,11 +23,12 @@ const getAll = async () => {
 };
 
 const getByName = async (nombre) => {
-    return await Group.findOne({ nombre }).exec();
+    return await Group.findOne({ nombre: nombre }).exec();
 };
 
-const update = async (id, nombre, representante, correo, telefono, integrantes, precioHora, zonaServicio, descripcion, genero) => {
-    const updatedGroup = await Group.findByIdAndUpdate(id, {
+const update = async (id, userData) => {
+    const { nombre, representante, correo, telefono, integrantes, precioHora, zonaServicio, descripcion, genero } = userData
+    const updatedGroup = await Group.findByIdAndUpdate(id, { 
         nombre,
         representante,
         correo,
@@ -36,7 +37,7 @@ const update = async (id, nombre, representante, correo, telefono, integrantes, 
         precioHora,
         zonaServicio,
         descripcion,
-        genero,
+        genero
         },
         { new: true },
     ).exec();

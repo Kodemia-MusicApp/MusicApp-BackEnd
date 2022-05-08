@@ -14,7 +14,7 @@ router.get('/', async (req, res, next) => {
     }
 });
 
-router.get('name', async (req, res, next) => {
+router.get('/:name', async (req, res, next) => {
     try {
         const { name } = req.params;
         const retrievedGroup = await Group.getByName(name);
