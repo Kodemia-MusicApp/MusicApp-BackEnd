@@ -26,3 +26,11 @@ const update = async (id, nombre) => {
 const del = async (id) => {
     return await Gender.findByIdAndDelete(id).exec();
 };
+
+module.exports = {
+    create,
+    getAll,
+    getByName,
+    update,
+    del
+};
