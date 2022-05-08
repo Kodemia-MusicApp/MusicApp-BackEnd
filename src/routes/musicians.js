@@ -70,4 +70,16 @@ router.patch("/:correo", async (req, res, next) => {
   }
 });
 
+router.delete("/:correo", async (req, res, next) => {
+  try {
+    const { correo } = req.params;
+    const delMusician = await musician.del(correo);
+    res.json({
+      succes: true,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 module.exports = router;

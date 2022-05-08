@@ -32,8 +32,8 @@ const patch = async (correo, musicianData) => {
     .catch((error) => console.log(error));
 };
 
-const del = async (id) => {
-  return await Musicians.findByIdAndDelete(id).exec();
+const del = async (correo) => {
+  return await Musicians.findOneAndDelete(correo).exec();
 };
 
 module.exports = {
