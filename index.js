@@ -6,6 +6,7 @@ const cors = require("cors");
 const apiRouter = require("./src/routes");
 
 app.use(express.json());
+apiRouter(app);
 app.use(cors());
 apiRouter(app);
 app.listen(port, () => {
