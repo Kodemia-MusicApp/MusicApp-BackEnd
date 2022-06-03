@@ -76,7 +76,7 @@ router.put('/:id', async (req, res, next) => {
             success: true,
             message: 'Grupo actualizado exitosamente',
             payload: groupUpdated,
-        })
+        });
     } catch (error) {
         next(error);
     }
