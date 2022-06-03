@@ -1,4 +1,5 @@
 const Musicians = require("../../models/musician").model;
+const encrypt = require("../../lib/encrypt");
 
 const creaMusico = async (
   nombre,
@@ -9,12 +10,13 @@ const creaMusico = async (
   descripcion,
   tipoMusico
 ) => {
+  const hash = await encrypt.hashPasword(contrasenia);
   const creaMusician = new Musicians({
     nombre,
     apellidoPaterno,
     apellidoMaterno,
     correo,
-    contrasenia,
+    contrasenia: hash,
     descripcion,
     tipoMusico,
   });
@@ -36,9 +38,15 @@ const del = async (correo) => {
   return await Musicians.findOneAndDelete(correo).exec();
 };
 
+const authenticate = async (user, contrasenia) => {
+  const hash = user.contrasenia;
+  return await encrypt.verifyPassword(contrasenia, hash);
+};
+
 module.exports = {
   creaMusico,
   patch,
   getByEmail,
   del,
+  authenticate,
 };
