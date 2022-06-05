@@ -16,6 +16,6 @@ const payment = () => {
     .then((res) => res.json())
     .then((body) => {
       console.log(body.data.links[1].href);
-      //  window.location.assign(`${body.data.links[1].href}`);
+      window.location.assign(`${body.data.links[1].href}`);
     });
 };

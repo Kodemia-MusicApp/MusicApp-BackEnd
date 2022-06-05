@@ -11,6 +11,7 @@ const schema = new Schema({
   oculto: { type: Boolean, default: false, required: false },
   descripcion: { type: String, required: false },
   tipoMusico: { type: String, required: false },
+  genero: { type: String, required: false },
 });
 
 module.exports = {
