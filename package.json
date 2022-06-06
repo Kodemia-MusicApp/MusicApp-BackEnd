@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/Kodemia-MusicApp/MusicApp-BackEnd#readme",
   "dependencies": {
+    "@mongoosejs/double": "^0.2.0",
     "axios": "^0.27.2",
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",

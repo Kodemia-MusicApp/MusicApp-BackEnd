@@ -1,20 +1,33 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const Double = require("@mongoosejs/double");
 
 const schema = new Schema({
-    titulo: { type: String, required: true },
-    localizacion: { type: String, required: true },
-    descripcion: { type: String, required: true },
-    fechaInicio: { type: Date, required: true },
-    horaInicio: { type: String, required: true },
-    fechaFinalizacion: { type: Date, required: true },
-    horaFinalizacion: { type: String, required: true },
-    contratista: { type: String, required: true },
-    contratado: { type: String, required: true },
-    pago: { type: String, required: true },
+  titulo: { type: String, required: true },
+  localizacion: { type: String, required: true },
+  descripcion: { type: String, required: true },
+  fechaInicio: { type: Date, required: true },
+  horaInicio: { type: String, required: true },
+  fechaFinalizacion: { type: Date, required: true },
+  horaFinalizacion: { type: String, required: true },
+  pago: { type: String, required: true },
+  aceptado: { type: Boolean, required: false, default: false },
+  calcelado: { type: Boolean, required: false, default: false },
+  clienteId: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Clientes",
+    },
+  ],
+  musicoId: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "musicos",
+    },
+  ],
 });
 
 module.exports = {
-    schema,
-    model: mongoose.model('Event', schema),
+  schema,
+  model: mongoose.model("Event", schema),
 };

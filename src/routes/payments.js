@@ -5,19 +5,6 @@ const api = require("../lib/config");
 
 const auth = { user: api.api.user, pass: api.api.secret };
 
-router.get("/", (req, res, next) => {
-  //res.render("index", { title: "Express" });
-  console.log(api.api.secret);
-  try {
-    res.json({
-      success: true,
-      secret: api.api.secret,
-    });
-  } catch (error) {
-    res.json(error);
-  }
-});
-
 const createPayment = (req, res) => {
   const { price } = req.body;
   const body = {
