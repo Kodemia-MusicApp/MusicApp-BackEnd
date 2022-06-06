@@ -11,6 +11,11 @@ const config = {
     host: process.env.DB_HOST,
     baseCollection: process.env.DB_BASE_COLLECTION,
   },
+  api: {
+    user: process.env.CLIENT,
+    secret: process.env.SECRET,
+    paypal: process.env.PAYPAL_API,
+  },
 };
 
 module.exports = config;
