@@ -1,6 +1,7 @@
 const express = require("express");
 const group = require("../useCases/group");
 const musician = require("../useCases/musician");
+const client = require("../useCases/client");
 const jwt = require("../lib/jwt");
 const router = express.Router();
 
@@ -11,12 +12,19 @@ router.post("/login/musician", async (req, res, next) => {
     const isMatch = await musician.authenticate(retrievedUser, password);
     if (isMatch) {
       const token = await jwt.sign({
-        sub: retrievedUser._id,
+        _id: retrievedUser._id,
+        type: retrievedUser.tipoMusico,
       });
       res.json({
         success: true,
         message: "Login exitoso",
-        payload: token,
+        payload: [
+          {
+            token: token,
+          },
+          { id: retrievedUser._id },
+          { type: retrievedUser.tipoMusico },
+        ],
       });
     } else {
       res.status(403).json({
@@ -32,16 +40,27 @@ router.post("/login/musician", async (req, res, next) => {
 router.post("/login/clients", async (req, res, next) => {
   try {
     const { correo, password } = req.body;
-    const retrievedUser = await musician.getByEmail(correo);
-    const isMatch = await musician.authenticate(retrievedUser, password);
+    const retrievedUser = await client.getByEmail(correo);
+    const isMatch = await client.authenticate(retrievedUser, password);
     if (isMatch) {
       const token = await jwt.sign({
-        sub: retrievedUser._id,
+        _id: retrievedUser._id,
+        type: retrievedUser.tipo,
       });
       res.json({
         success: true,
         message: "Login exitoso",
-        payload: token,
+        payload: [
+          {
+            token: token,
+          },
+          {
+            id: retrievedUser._id,
+          },
+          {
+            type: retrievedUser.tipo,
+          },
+        ],
       });
     } else {
       res.status(403).json({

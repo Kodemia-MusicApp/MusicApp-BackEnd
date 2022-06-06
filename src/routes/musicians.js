@@ -2,6 +2,7 @@ const router = require("express").Router();
 const musician = require("../useCases/musician");
 const jwt = require("../lib/jwt");
 const { authHandler } = require("../middlewares/authHandler");
+const { getById } = require("../useCases/client");
 
 router.post("/", async (req, res, next) => {
   try {
@@ -12,7 +13,15 @@ router.post("/", async (req, res, next) => {
       correo,
       contrasenia,
       descripcion,
+      genero,
+      phone,
       tipoMusico,
+      nombreArtistico,
+      horarioDiaUno,
+      horarioDiaDos,
+      horarioInicio,
+      horarioFin,
+      cobroPorHora,
     } = req.body;
     const creaMusician = await musician.creaMusico(
       nombre,
@@ -21,7 +30,15 @@ router.post("/", async (req, res, next) => {
       correo,
       contrasenia,
       descripcion,
-      tipoMusico
+      genero,
+      phone,
+      tipoMusico,
+      nombreArtistico,
+      horarioDiaUno,
+      horarioDiaDos,
+      horarioInicio,
+      horarioFin,
+      cobroPorHora
     );
     const userId = await musician.getByEmail(correo);
     const token = await jwt.sign({
@@ -30,41 +47,82 @@ router.post("/", async (req, res, next) => {
     });
     res.json({
       success: true,
-      payload: token,
-      id: userId._id,
+      payload: [
+        { token: token },
+        { id: userId._id },
+        { type: userId.tipoMusico },
+      ],
     });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.json({
       succes: false,
     });
   }
 });
 
-router.get("/:id", authHandler, async (req, res, next) => {
-  //console.log("entra");
+router.get("/:id", async (req, res, next) => {
   try {
+    const { id } = req.params;
+    const getById = await musician.getById(id);
     res.json({
       message: "Success",
+      payload: [
+        {
+          id: getById._id,
+          apellidoPaterno: getById.apellidoPaterno,
+          apellidoMaterno: getById.apellidoMaterno,
+          telefono: getById.numeroTelefono,
+          imagenMusico: getById.imagenMusico,
+          descripcion: getById.descripcion,
+          genero: getById.genero,
+          tipoMusico: getById.tipoMusico,
+          cobroPorHora: getById.cobroPorHora,
+          nombreArtistico: getById.nombreArtistico,
+          horarioDiaUno: getById.nombreArtistico,
+          horarioDiaDos: getById.nombreArtistico,
+          horarioInicio: getById.nombreArtistico,
+          horarioFin: getById.nombreArtistico,
+        },
+      ],
     });
-  } catch (error) {}
+  } catch (error) {
+    res.json({
+      message: false,
+    });
+  }
 });
 
-router.get("/:correo", authHandler, async (req, res, next) => {
+router.get("/", async (req, res, next) => {
   try {
-    const { correo } = req.params;
-    const musicians = await musician.getByEmail(correo);
-    if (musicians == null) {
-      res.json({
-        success: false,
-      });
-    } else {
-      res.json({
-        success: true,
-      });
-    }
+    const getAllMusician = await musician.getAll();
+    let musicians = [];
+    getAllMusician.forEach((musician, index) => {
+      musicians[index] = {
+        id: musician._id,
+        apellidoPaterno: musician.apellidoPaterno,
+        apellidoMaterno: musician.apellidoMaterno,
+        telefono: musician.numeroTelefono,
+        imagenMusico: musician.imagenMusico,
+        descripcion: musician.descripcion,
+        genero: musician.genero,
+        tipoMusico: musician.tipoMusico,
+        nombreArtistico: musician.nombreArtistico,
+        horarioDiaUno: musician.horarioDiaUno,
+        horarioDiaDos: musician.horarioDiaDos,
+        horarioInicio: musician.horarioInicio,
+        horarioFin: musician.horarioFin,
+        cobroPorHora: musician.cobroPorHora,
+      };
+    });
+    res.json({
+      message: true,
+      payload: musicians,
+    });
   } catch (error) {
-    console.log(error);
+    res.json({
+      message: "entra false",
+    });
   }
 });
 
