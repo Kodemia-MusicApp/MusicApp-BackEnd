@@ -8,8 +8,9 @@ const apiRouter = require("./src/routes");
 app.use(express.json());
 app.use(cors());
 apiRouter(app);
-app.listen(process.env.APP_PORT || 3001, "0.0.0.0", () => {
-  console.log(`Welcome to MusicApp ${process.env.APP_PORT}`);
+const PORT = process.env.PORT;
+app.listen(PORT || 5000, () => {
+  console.log(`Welcome to MusicApp ${PORT}`);
 
   db.connect()
     .then(() => {
