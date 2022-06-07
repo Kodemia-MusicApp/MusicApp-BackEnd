@@ -32,7 +32,20 @@ const create = async (
 };
 
 const getAll = async () => {
-  return await Event.find({}).exec();
+  return await Event.find({})
+    .populate({
+      path: "clienteId",
+      select: "name lastname secondlastname",
+    })
+    .populate({
+      path: "musicoId",
+      select: "name",
+    })
+    .exec();
+};
+
+const getAllEventByClient = async (id) => {
+  return await Event.findById(id).populate("clientes").exec();
 };
 
 const update = async (id, eventData) => {
@@ -77,4 +90,5 @@ module.exports = {
   update,
   del,
   patch,
+  getAllEventByClient,
 };

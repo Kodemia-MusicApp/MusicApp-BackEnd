@@ -16,6 +16,22 @@ router.get("/", authHandler, async (req, res, next) => {
   }
 });
 
+router.get("/:id", authHandler, async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const events = await Event.getAllEventByClient(id);
+    console.log(events);
+    res.json({
+      success: true,
+      payload: events,
+    });
+  } catch (error) {
+    res.json({
+      success: false,
+    });
+  }
+});
+
 router.patch("/:id", authHandler, async (req, res, next) => {
   try {
     const { id } = req.params;

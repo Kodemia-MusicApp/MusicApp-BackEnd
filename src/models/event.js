@@ -16,7 +16,7 @@ const schema = new Schema({
   clienteId: [
     {
       type: Schema.Types.ObjectId,
-      ref: "Clientes",
+      ref: "clientes",
     },
   ],
   musicoId: [

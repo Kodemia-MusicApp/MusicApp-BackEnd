@@ -78,7 +78,7 @@ router.post("/", async (req, res, next) => {
     res.json({
       success: true,
       message: "Cliente created",
-      payload: [{ token: token }, { id: client._id }, { type: client.tipo }],
+      payload: [{ token: token, id: client._id, type: client.tipo }],
     });
   } catch (error) {
     res.json({
