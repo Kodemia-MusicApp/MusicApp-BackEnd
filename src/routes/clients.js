@@ -30,13 +30,13 @@ router.get("/:id", authHandler, clientHandler, async (req, res, next) => {
       payload: [
         {
           name: retrievedCLient.name,
+          lastname: retrievedCLient.lastname,
+          secondlastname: retrievedCLient.secondlastname,
+          imagenusuario: retrievedCLient.imagenusuario,
+          email: retrievedCLient.email,
+          phone: retrievedCLient.phone,
+          type: retrievedCLient.tipo,
         },
-        { lastname: retrievedCLient.lastname },
-        { secondlastname: retrievedCLient.secondlastname },
-        { imagenusuario: retrievedCLient.imagenusuario },
-        { email: retrievedCLient.email },
-        { phone: retrievedCLient.phone },
-        { type: retrievedCLient.tipo },
       ],
     });
   } catch (error) {
@@ -97,7 +97,6 @@ router.put("/:id", authHandler, clientHandler, async (req, res, next) => {
     res.json({
       success: true,
       message: "Cliente actualizado",
-      payload: clienteUpdate,
     });
   } catch (error) {
     res.json({

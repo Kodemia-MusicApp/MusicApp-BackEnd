@@ -121,7 +121,7 @@ router.get("/", async (req, res, next) => {
     });
   } catch (error) {
     res.json({
-      message: "entra false",
+      success: false,
     });
   }
 });
@@ -135,7 +135,9 @@ router.patch("/:correo", authHandler, async (req, res, next) => {
       payload: updateMusician,
     });
   } catch (error) {
-    console.log(error);
+    res.json({
+      succes: false,
+    });
   }
 });
 
