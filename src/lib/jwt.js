@@ -2,7 +2,7 @@ const jsonwebtoken = require("jsonwebtoken");
 const config = require("./config");
 
 const sign = async (payload) => {
-  return await jsonwebtoken.sign(payload, config.app.jwt, { expiresIn: "1h" });
+  return await jsonwebtoken.sign(payload, config.app.jwt, { expiresIn: "4h" });
 };
 
 const verify = async (token) => {

@@ -8,19 +8,20 @@ router.get("/", authHandler, async (req, res, next) => {
     const events = await Event.getAll();
     res.json({
       success: true,
-      message: "Estos son todos los eventos",
       payload: events,
     });
   } catch (error) {
+    res.json({
+      success: false,
+    });
     next(error);
   }
 });
 
-router.get("/:id", authHandler, async (req, res, next) => {
+router.get("/client/:id", authHandler, async (req, res, next) => {
   try {
     const { id } = req.params;
-    const events = await Event.getAllEventByClient(id);
-    console.log(events);
+    const events = await Event.getEventByClient(id);
     res.json({
       success: true,
       payload: events,
@@ -29,6 +30,23 @@ router.get("/:id", authHandler, async (req, res, next) => {
     res.json({
       success: false,
     });
+    next();
+  }
+});
+
+router.get("/musician/:id", authHandler, async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const events = await Event.getEventByMusician(id);
+    res.json({
+      success: true,
+      payload: events,
+    });
+  } catch (error) {
+    res.json({
+      success: false,
+    });
+    next();
   }
 });
 

@@ -1,5 +1,3 @@
-const musician = require("../../models/musician");
-
 const Event = require("../../models/event").model;
 
 const create = async (
@@ -42,6 +40,61 @@ const getAll = async () => {
       select: "name",
     })
     .exec();
+};
+
+const getEventByClient = async (id) => {
+  const events = [];
+  const event = await Event.find({})
+    .populate({
+      path: "clienteId",
+      match: { _id: id },
+      select: "name lastname secondlastname",
+    })
+    .exec();
+  event.map((event) => {
+    if (event.clienteId != "") {
+      const objEvent = {
+        titulo: event.titulo,
+        aceptado: event.aceptado,
+      };
+      events.push(objEvent);
+    }
+  });
+  return events;
+};
+
+const getEventByMusician = async (id) => {
+  const events = [];
+  const event = await Event.find({})
+    .populate({
+      path: "musicoId",
+      match: { _id: id },
+      select: "name",
+    })
+    .populate({
+      path: "clienteId",
+      select: "name lastname secondlastname",
+    })
+    .exec();
+
+  event.map((event) => {
+    if (event.musicoId != "") {
+      const objEvent = {
+        _id: event._id,
+        titulo: event.titulo,
+        localizacion: event.localizacion,
+        descripcion: event.descripcion,
+        fechaInicio: event.fechaInicio,
+        horaInicio: event.horaInicio,
+        fechaFinalizacion: event.fechaFinalizacion,
+        horaFinalizacion: event.horaFinalizacion,
+        pago: event.pago,
+        nameClient: event.clienteId[0].name,
+      };
+      events.push(objEvent);
+    }
+  });
+  return events;
 };
 
 const getAllEventByClient = async (id) => {
@@ -91,4 +144,6 @@ module.exports = {
   del,
   patch,
   getAllEventByClient,
+  getEventByClient,
+  getEventByMusician,
 };
