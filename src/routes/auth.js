@@ -33,6 +33,10 @@ router.post("/login/musician", async (req, res, next) => {
       });
     }
   } catch (error) {
+    res.json({
+      success: false,
+      message: "correo o contraseña incorrectos",
+    });
     next(error);
   }
 });
@@ -69,6 +73,10 @@ router.post("/login/clients", async (req, res, next) => {
       });
     }
   } catch (error) {
+    res.json({
+      success: false,
+      message: "correo o contraseña incorrectos",
+    });
     next(error);
   }
 });
