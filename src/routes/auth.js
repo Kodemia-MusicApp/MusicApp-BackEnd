@@ -33,7 +33,7 @@ router.post("/login/musician", async (req, res, next) => {
       });
     }
   } catch (error) {
-    res.json({
+    res.status(403).json({
       success: false,
       message: "correo o contraseña incorrectos",
     });
@@ -73,7 +73,7 @@ router.post("/login/clients", async (req, res, next) => {
       });
     }
   } catch (error) {
-    res.json({
+    res.status(403).json({
       success: false,
       message: "correo o contraseña incorrectos",
     });
