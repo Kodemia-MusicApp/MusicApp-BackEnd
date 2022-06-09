@@ -3,6 +3,7 @@ const group = require("../useCases/group");
 const musician = require("../useCases/musician");
 const client = require("../useCases/client");
 const jwt = require("../lib/jwt");
+const { verify } = require("jsonwebtoken");
 const router = express.Router();
 
 router.post("/login/musician", async (req, res, next) => {
@@ -79,6 +80,18 @@ router.post("/login/clients", async (req, res, next) => {
       message: "correo o contraseña incorrectos",
     });
     next(error);
+  }
+});
+
+router.post("/login/verify", async (req, res, next) => {
+  try {
+    const token = req.body;
+    const verifyToken = await jwt.verify(token.token);
+    res.json({
+      success: true,
+    });
+  } catch (error) {
+    res.json({ success: false });
   }
 });
 
