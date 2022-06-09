@@ -51,8 +51,9 @@ const getEventByClient = async (id) => {
       select: "name lastname secondlastname",
     })
     .exec();
+
   event.map((event) => {
-    if (event.clienteId != "") {
+    if (event.clienteId != "" && event.clienteId[0].id == id) {
       const objEvent = {
         titulo: event.titulo,
         aceptado: event.aceptado,
@@ -65,6 +66,7 @@ const getEventByClient = async (id) => {
 
 const getEventByMusician = async (id) => {
   const events = [];
+
   const event = await Event.find({})
     .populate({
       path: "musicoId",
@@ -78,7 +80,7 @@ const getEventByMusician = async (id) => {
     .exec();
 
   event.map((event) => {
-    if (event.musicoId != "") {
+    if (event.musicoId != "" && event.musicoId[0].id == id) {
       const objEvent = {
         _id: event._id,
         titulo: event.titulo,
@@ -94,6 +96,7 @@ const getEventByMusician = async (id) => {
       events.push(objEvent);
     }
   });
+  // console.log(events);
   return events;
 };
 

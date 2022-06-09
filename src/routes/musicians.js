@@ -54,17 +54,17 @@ router.post("/", async (req, res, next) => {
       ],
     });
   } catch (error) {
-    // console.log(error);
     res.json({
       succes: false,
     });
   }
 });
 
-router.get("/:id", async (req, res, next) => {
+router.get("/", authHandler, async (req, res, next) => {
   try {
-    const { id } = req.params;
-    const getById = await musician.getById(id);
+    const { _id } = req.params.tokenPayload;
+    console.log(_id);
+    const getById = await musician.getById(_id);
     res.json({
       message: "Success",
       payload: [
@@ -93,7 +93,7 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
-router.get("/", async (req, res, next) => {
+router.get("/all", async (req, res, next) => {
   try {
     const getAllMusician = await musician.getAll();
     let musicians = [];
@@ -126,13 +126,12 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-router.patch("/:correo", authHandler, async (req, res, next) => {
+router.patch("/", authHandler, async (req, res, next) => {
   try {
-    const { correo } = req.params;
-    const updateMusician = await musician.patch(correo, { ...req.body });
+    const { _id } = req.params.tokenPayload;
+    const updateMusician = await musician.patch(_id, { ...req.body });
     res.json({
       succes: true,
-      payload: updateMusician,
     });
   } catch (error) {
     res.json({

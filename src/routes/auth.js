@@ -9,6 +9,7 @@ router.post("/login/musician", async (req, res, next) => {
   try {
     const { correo, password } = req.body;
     const retrievedUser = await musician.getByEmail(correo);
+    console.log(retrievedUser);
     const isMatch = await musician.authenticate(retrievedUser, password);
     if (isMatch) {
       const token = await jwt.sign({

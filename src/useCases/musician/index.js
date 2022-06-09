@@ -50,7 +50,7 @@ const getById = async (id) => {
 };
 
 const getByEmail = async (correo) => {
-  const findMusician = await Musicians.findOne({ correo }).exec();
+  const findMusician = await Musicians.findOne({ email: correo }).exec();
   return findMusician;
 };
 

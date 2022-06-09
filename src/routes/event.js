@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Event = require("../useCases/event");
 const { authHandler } = require("../middlewares/authHandler");
+const { musicianHandler } = require("../middlewares/clientHandler");
 
 router.get("/", authHandler, async (req, res, next) => {
   try {
@@ -17,11 +18,11 @@ router.get("/", authHandler, async (req, res, next) => {
     next(error);
   }
 });
-
-router.get("/client/:id", authHandler, async (req, res, next) => {
+//aqui corregir
+router.get("/client/", authHandler, async (req, res, next) => {
   try {
-    const { id } = req.params;
-    const events = await Event.getEventByClient(id);
+    const { _id } = req.params.tokenPayload;
+    const events = await Event.getEventByClient(_id);
     res.json({
       success: true,
       payload: events,
@@ -34,10 +35,10 @@ router.get("/client/:id", authHandler, async (req, res, next) => {
   }
 });
 
-router.get("/musician/:id", authHandler, async (req, res, next) => {
+router.get("/musician", authHandler, async (req, res, next) => {
   try {
-    const { id } = req.params;
-    const events = await Event.getEventByMusician(id);
+    const { _id } = req.params.tokenPayload;
+    const events = await Event.getEventByMusician(_id);
     res.json({
       success: true,
       payload: events,
@@ -67,6 +68,7 @@ router.patch("/:id", authHandler, async (req, res, next) => {
 
 router.post("/", authHandler, async (req, res, next) => {
   try {
+    const { _id } = req.params.tokenPayload;
     const {
       titulo,
       localizacion,
@@ -76,9 +78,9 @@ router.post("/", authHandler, async (req, res, next) => {
       fechaFinalizacion,
       horaFinalizacion,
       pago,
-      clienteId,
       musicoId,
     } = req.body;
+    const { clienteId } = { clienteId: _id };
     const eventCreated = await Event.create(
       titulo,
       localizacion,
@@ -103,7 +105,7 @@ router.post("/", authHandler, async (req, res, next) => {
 
 router.put("/:id", async (req, res, next) => {
   try {
-    const { id } = req.params;
+    const { id } = req.params.tokenPayload;
     const {
       titulo,
       localizacion,

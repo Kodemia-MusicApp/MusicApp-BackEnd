@@ -6,25 +6,10 @@ const { clientHandler } = require("../middlewares/clientHandler");
 
 const router = express.Router();
 
-router.get("/", authHandler, async (req, res, next) => {
+router.get("/", authHandler, clientHandler, async (req, res, next) => {
   try {
-    const clientes = await cliente.getAll();
-    res.json({
-      success: true,
-      payload: clientes,
-    });
-  } catch (error) {
-    res.json({
-      success: false,
-    });
-    next(error);
-  }
-});
-
-router.get("/:id", authHandler, clientHandler, async (req, res, next) => {
-  try {
-    const { id } = req.params;
-    const retrievedCLient = await cliente.getById(id);
+    const { type, _id } = req.params.tokenPayload;
+    const retrievedCLient = await cliente.getById(_id);
     res.json({
       success: true,
       payload: [
@@ -38,6 +23,21 @@ router.get("/:id", authHandler, clientHandler, async (req, res, next) => {
           type: retrievedCLient.tipo,
         },
       ],
+    });
+  } catch (error) {
+    res.json({
+      success: false,
+    });
+    next(error);
+  }
+});
+
+router.get("/:id", authHandler, clientHandler, async (req, res, next) => {
+  try {
+    const clientes = await cliente.getAll();
+    res.json({
+      success: true,
+      payload: clientes,
     });
   } catch (error) {
     res.json({
@@ -88,11 +88,10 @@ router.post("/", async (req, res, next) => {
   }
 });
 
-router.put("/:id", authHandler, clientHandler, async (req, res, next) => {
+router.put("/", authHandler, clientHandler, async (req, res, next) => {
   try {
-    console.log(req);
-    const { id } = req.params;
-    const clienteUpdate = await cliente.update(id, req.body);
+    const { type, _id } = req.params.tokenPayload;
+    const clienteUpdate = await cliente.update(_id, req.body);
 
     res.json({
       success: true,
@@ -101,6 +100,7 @@ router.put("/:id", authHandler, clientHandler, async (req, res, next) => {
   } catch (error) {
     res.json({
       success: false,
+      message: "No entra",
     });
     next(error);
   }
