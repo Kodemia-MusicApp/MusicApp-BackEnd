@@ -1,16 +1,16 @@
 const express = require("express");
-const group = require("../useCases/group");
 const musician = require("../useCases/musician");
 const client = require("../useCases/client");
 const jwt = require("../lib/jwt");
 const { verify } = require("jsonwebtoken");
+const { authHandler } = require("../middlewares/authHandler");
+
 const router = express.Router();
 
 router.post("/login/musician", async (req, res, next) => {
   try {
     const { correo, password } = req.body;
     const retrievedUser = await musician.getByEmail(correo);
-    console.log(retrievedUser);
     const isMatch = await musician.authenticate(retrievedUser, password);
     if (isMatch) {
       const token = await jwt.sign({
@@ -23,9 +23,12 @@ router.post("/login/musician", async (req, res, next) => {
         payload: [
           {
             token: token,
+            imagenMusico: retrievedUser.imagenMusico,
+            name: retrievedUser.name,
+            lastname: retrievedUser.lastname,
+            secondlastname: retrievedUser.secondlastname,
+            type: retrievedUser.tipoMusico,
           },
-          { id: retrievedUser._id },
-          { type: retrievedUser.tipoMusico },
         ],
       });
     } else {
@@ -59,12 +62,11 @@ router.post("/login/clients", async (req, res, next) => {
         payload: [
           {
             token: token,
-          },
-          {
-            id: retrievedUser._id,
-          },
-          {
+            imagenusuario: retrievedUser.imagenusuario,
+            name: retrievedUser.name,
             type: retrievedUser.tipo,
+            lastname: retrievedUser.lastname,
+            secondlastname: retrievedUser.secondlastname,
           },
         ],
       });
@@ -83,13 +85,38 @@ router.post("/login/clients", async (req, res, next) => {
   }
 });
 
-router.post("/login/verify", async (req, res, next) => {
+router.post("/login/verify", authHandler, async (req, res, next) => {
+  const { type, _id } = req.params.tokenPayload;
+
   try {
-    const token = req.body;
-    const verifyToken = await jwt.verify(token.token);
-    res.json({
-      success: true,
-    });
+    const retrievedCLient = await client.getById(_id);
+    const retrievedMusician = await musician.getById(_id);
+    if (retrievedMusician != null) {
+      res.json({
+        success: true,
+        payload: [
+          {
+            name: retrievedMusician.name,
+            lastname: retrievedMusician.lastname,
+            secondlastname: retrievedMusician.secondlastname,
+            type: retrievedMusician.tipoMusico,
+          },
+        ],
+      });
+    }
+    if (retrievedCLient != null) {
+      res.json({
+        success: true,
+        payload: [
+          {
+            name: retrievedCLient.name,
+            lastname: retrievedCLient.lastname,
+            secondlastname: retrievedCLient.secondlastname,
+            type: retrievedCLient.tipoMusico,
+          },
+        ],
+      });
+    }
   } catch (error) {
     res.json({ success: false });
   }
