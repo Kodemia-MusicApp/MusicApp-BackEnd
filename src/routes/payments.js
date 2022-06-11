@@ -52,7 +52,7 @@ const executePayment = (req, res) => {
     (err, response) => {
       try {
         const paymantCreate = payment.create(response.body);
-        res.redirect(process.env.URL_FRONT_END);
+        res.redirect(`${process.env.URL_FRONT_END}/payment/accepted`);
         //console.log(process.env.URL_API_BACK_END);
         //res.json({ success: true });
       } catch (error) {
@@ -64,9 +64,7 @@ const executePayment = (req, res) => {
 
 router.get(`/execute-payment`, executePayment);
 router.get(`/cancel-payment`, async (req, res, next) => {
-  res.json({
-    success: false,
-  });
+  res.redirect(`${process.env.URL_FRONT_END}/payment/refused`);
 });
 router.post("/create-payments", createPayment);
 

@@ -100,6 +100,7 @@ router.post("/login/verify", authHandler, async (req, res, next) => {
             lastname: retrievedMusician.lastname,
             secondlastname: retrievedMusician.secondlastname,
             type: retrievedMusician.tipoMusico,
+            imagenusuario: retrievedMusician.imagenMusico,
           },
         ],
       });
@@ -113,6 +114,7 @@ router.post("/login/verify", authHandler, async (req, res, next) => {
             lastname: retrievedCLient.lastname,
             secondlastname: retrievedCLient.secondlastname,
             type: retrievedCLient.tipoMusico,
+            imagenusuario: retrievedCLient.imagenusuario,
           },
         ],
       });
