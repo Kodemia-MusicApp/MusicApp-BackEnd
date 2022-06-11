@@ -60,10 +60,41 @@ router.post("/", async (req, res, next) => {
   }
 });
 
+router.get("/id/:id", async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const getById = await musician.getById(id);
+    res.json({
+      message: "Success",
+      payload: [
+        {
+          id: getById._id,
+          apellidoPaterno: getById.apellidoPaterno,
+          apellidoMaterno: getById.apellidoMaterno,
+          telefono: getById.numeroTelefono,
+          imagenMusico: getById.imagenMusico,
+          descripcion: getById.descripcion,
+          genero: getById.genero,
+          tipoMusico: getById.tipoMusico,
+          cobroPorHora: getById.cobroPorHora,
+          nombreArtistico: getById.nombreArtistico,
+          horarioDiaUno: getById.nombreArtistico,
+          horarioDiaDos: getById.nombreArtistico,
+          horarioInicio: getById.nombreArtistico,
+          horarioFin: getById.nombreArtistico,
+        },
+      ],
+    });
+  } catch (error) {
+    res.json({
+      succes: false,
+    });
+  }
+});
+
 router.get("/", authHandler, async (req, res, next) => {
   try {
     const { _id } = req.params.tokenPayload;
-    console.log(_id);
     const getById = await musician.getById(_id);
     res.json({
       message: "Success",
