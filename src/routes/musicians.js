@@ -82,6 +82,7 @@ router.get("/id/:id", async (req, res, next) => {
           horarioDiaDos: getById.nombreArtistico,
           horarioInicio: getById.nombreArtistico,
           horarioFin: getById.nombreArtistico,
+          estado: getById.estado,
         },
       ],
     });
