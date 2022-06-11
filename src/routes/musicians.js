@@ -144,6 +144,7 @@ router.get("/all", async (req, res, next) => {
         horarioInicio: musician.horarioInicio,
         horarioFin: musician.horarioFin,
         cobroPorHora: musician.cobroPorHora,
+        estado: musician.estado,
       };
     });
     res.json({
