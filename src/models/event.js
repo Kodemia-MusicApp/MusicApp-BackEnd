@@ -10,9 +10,10 @@ const schema = new Schema({
   horaInicio: { type: String, required: true },
   fechaFinalizacion: { type: Date, required: true },
   horaFinalizacion: { type: String, required: true },
-  pago: { type: String, required: true },
+  pago: { type: String, required: false },
   aceptado: { type: Boolean, required: false, default: false },
   calcelado: { type: Boolean, required: false, default: false },
+  pagoAceptado: { type: Boolean, required: false, default: false },
   clienteId: [
     {
       type: Schema.Types.ObjectId,

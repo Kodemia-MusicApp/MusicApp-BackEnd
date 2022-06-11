@@ -3,16 +3,18 @@ const { json } = require("express/lib/response");
 const request = require("request");
 const api = require("../lib/config");
 const payment = require("../useCases/pagos");
+const event = require("../useCases/event");
 //const config = require("../lib/config");
 
 const auth = { user: api.api.user, pass: api.api.secret };
 
 const createPayment = (req, res) => {
-  const { price } = req.body;
+  const { price, custom_id } = req.body;
   const body = {
     intent: "CAPTURE",
     purchase_units: [
       {
+        reference_id: `${custom_id}`,
         amount: {
           currency_code: "MXN", //https://developer.paypal.com/docs/api/reference/currency-codes/
           value: `${price}`,
@@ -52,9 +54,13 @@ const executePayment = (req, res) => {
     (err, response) => {
       try {
         const paymantCreate = payment.create(response.body);
-        res.redirect(`${process.env.URL_FRONT_END}/payment/accepted`);
-        //console.log(process.env.URL_API_BACK_END);
-        //res.json({ success: true });
+        //res.redirect(`${process.env.URL_FRONT_END}/payment/accepted`);
+        console.log(response.body.purchase_units[0].reference_id);
+        res.json({ success: true, payload: response.body });
+        const eventPayment = event.update(
+          response.body.purchase_units[0].reference_id,
+          { pagoAceptado: true }
+        );
       } catch (error) {
         res.json({ success: false });
       }

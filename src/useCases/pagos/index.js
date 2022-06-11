@@ -12,6 +12,7 @@ const getById = async (id) => {
 
 const create = async (payment) => {
   const pago = new Pago({
+    id_evento: payment.purchase_units[0].reference_id,
     quienpago: payment.purchase_units[0].shipping.name.full_name,
     fechapago: payment.purchase_units[0].payments.captures[0].create_time,
     idpago: payment.id,
@@ -47,7 +48,7 @@ const create = async (payment) => {
 };
 
 const update = async (id, data) => {
-  const userfound = await Pago.findByIdAndUpdate(id, data);
+  const userfound = await Pago.findByIdAndUpdate(id, ...data);
   return userfound;
 };
 

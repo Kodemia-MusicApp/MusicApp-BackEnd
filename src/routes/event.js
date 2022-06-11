@@ -51,13 +51,21 @@ router.get("/musician", authHandler, async (req, res, next) => {
   }
 });
 
-router.patch("/:id", authHandler, async (req, res, next) => {
+router.patch("/update/:id", authHandler, async (req, res, next) => {
   try {
+    const { _id } = req.params.tokenPayload;
     const { id } = req.params;
     const eventUpdate = await Event.patch(id, { ...req.body });
-    res.json({
-      success: true,
-    });
+    if (eventUpdate !== null) {
+      res.json({
+        success: true,
+        message: eventUpdate,
+      });
+    } else {
+      res.json({
+        success: false,
+      });
+    }
   } catch (error) {
     res.json({
       success: false,
@@ -103,9 +111,9 @@ router.post("/", authHandler, async (req, res, next) => {
   }
 });
 
-router.put("/:id", async (req, res, next) => {
+router.put("/", async (req, res, next) => {
   try {
-    const { id } = req.params.tokenPayload;
+    const { _id } = req.params.tokenPayload;
     const {
       titulo,
       localizacion,
@@ -116,7 +124,7 @@ router.put("/:id", async (req, res, next) => {
       horaFinalizacion,
       pago,
     } = req.body;
-    const updatedEvent = await Event.update(id, {
+    const updatedEvent = await Event.update(_id, {
       titulo,
       localizacion,
       descripcion,
@@ -133,6 +141,21 @@ router.put("/:id", async (req, res, next) => {
     });
   } catch (error) {
     next(error);
+  }
+});
+
+router.get("/accepted", authHandler, async (req, res, next) => {
+  try {
+    const { _id } = req.params.tokenPayload;
+    const eventPayment = await Event.eventPayment(_id);
+    res.json({
+      success: true,
+      payload: eventPayment,
+    });
+  } catch (error) {
+    res.json({
+      success: false,
+    });
   }
 });
 

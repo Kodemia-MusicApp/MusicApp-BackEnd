@@ -6,6 +6,7 @@ const payment = () => {
     method: "POST",
     body: JSON.stringify({
       price: 500,
+      custom_id: "62a213eca4e7f99ec47d6f7d",
     }),
     headers: {
       "Content-Type": "application/json",

@@ -41,6 +41,10 @@ const getAll = async () => {
     })
     .exec();
 };
+const eventPayment = async (id) => {
+  const event = Event.find({ clienteId: id }).exec();
+  return event;
+};
 
 const getEventByClient = async (id) => {
   const events = [];
@@ -51,7 +55,7 @@ const getEventByClient = async (id) => {
       select: "name lastname secondlastname",
     })
     .exec();
-
+  //const event2 = await Event.find({ clienteId: id }).exec();
   event.map((event) => {
     if (event.clienteId != "" && event.clienteId[0].id == id) {
       const objEvent = {
@@ -105,30 +109,9 @@ const getAllEventByClient = async (id) => {
 };
 
 const update = async (id, eventData) => {
-  const {
-    titulo,
-    localizacion,
-    descripcion,
-    fechaInicio,
-    horaInicio,
-    fechaFinalizacion,
-    horaFinalizacion,
-    pago,
-  } = eventData;
-  const updatedEvent = await Event.findByIdAndUpdate(
-    id,
-    {
-      titulo,
-      localizacion,
-      descripcion,
-      fechaInicio,
-      horaInicio,
-      fechaFinalizacion,
-      horaFinalizacion,
-      pago,
-    },
-    { new: true }
-  ).exec();
+  const updatedEvent = await Event.findByIdAndUpdate(id, {
+    ...eventData,
+  }).exec();
   return updatedEvent;
 };
 
@@ -137,6 +120,7 @@ const del = async (id) => {
 };
 
 const patch = async (id, event) => {
+  console.log(id);
   return await Event.findByIdAndUpdate(id, { ...event }).exec();
 };
 
@@ -149,4 +133,5 @@ module.exports = {
   getAllEventByClient,
   getEventByClient,
   getEventByMusician,
+  eventPayment,
 };
