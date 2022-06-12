@@ -48,9 +48,13 @@ router.post("/", async (req, res, next) => {
     res.json({
       success: true,
       payload: [
-        { token: token },
-        { id: userId._id },
-        { type: userId.tipoMusico },
+        {
+          token: token,
+          typeClient: userId.tipoMusico,
+          imagenusuario: userId.imagenMusico,
+          lastname: userId.lastname,
+          secondlastname: userId.lastname,
+        },
       ],
     });
   } catch (error) {
