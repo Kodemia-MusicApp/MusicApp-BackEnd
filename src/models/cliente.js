@@ -16,7 +16,7 @@ const schema = new Schema({
   email: { type: String, required: true, unique: true },
   phone: { type: Number, required: false, default: 44444 },
   paymentmethod: { type: String, required: false },
-  estado: { type: String, required: true, default: "CDMX" },
+  estado: { type: String, required: false, default: "CDMX" },
   tipo: { type: String, required: false, default: "Client" },
 });
 

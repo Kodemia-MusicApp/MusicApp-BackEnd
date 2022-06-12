@@ -59,7 +59,7 @@ router.post("/", async (req, res, next) => {
       paymentmethod,
       estado,
     } = req.body;
-
+    console.log(req.body);
     const clientCreated = await cliente.create(
       name,
       lastname,
@@ -78,7 +78,16 @@ router.post("/", async (req, res, next) => {
     res.json({
       success: true,
       message: "Cliente created",
-      payload: [{ token: token, id: client._id, type: client.tipo }],
+      payload: [
+        {
+          token: token,
+          type: client.tipo,
+          name: client.name,
+          imagenusuario: client.imagenusuario,
+          lastname: client.lastname,
+          secondlastname: client.secondlastname,
+        },
+      ],
     });
   } catch (error) {
     res.json({

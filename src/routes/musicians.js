@@ -50,7 +50,8 @@ router.post("/", async (req, res, next) => {
       payload: [
         {
           token: token,
-          typeClient: userId.tipoMusico,
+          name: userId.name,
+          type: userId.tipoMusico,
           imagenusuario: userId.imagenMusico,
           lastname: userId.lastname,
           secondlastname: userId.lastname,
