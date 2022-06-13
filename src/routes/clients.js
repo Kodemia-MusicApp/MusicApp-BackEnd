@@ -21,6 +21,7 @@ router.get("/", authHandler, clientHandler, async (req, res, next) => {
           email: retrievedCLient.email,
           phone: retrievedCLient.phone,
           type: retrievedCLient.tipo,
+          state: retrievedCLient.estado,
         },
       ],
     });
@@ -86,6 +87,7 @@ router.post("/", async (req, res, next) => {
           imagenusuario: client.imagenusuario,
           lastname: client.lastname,
           secondlastname: client.secondlastname,
+          state: client.estado,
         },
       ],
     });

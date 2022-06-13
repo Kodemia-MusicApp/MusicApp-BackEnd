@@ -55,6 +55,7 @@ router.post("/", async (req, res, next) => {
           imagenusuario: userId.imagenMusico,
           lastname: userId.lastname,
           secondlastname: userId.lastname,
+          state: userId.estado,
         },
       ],
     });
@@ -120,6 +121,7 @@ router.get("/", authHandler, async (req, res, next) => {
           horarioDiaDos: getById.nombreArtistico,
           horarioInicio: getById.nombreArtistico,
           horarioFin: getById.nombreArtistico,
+          state: getById.estado,
         },
       ],
     });

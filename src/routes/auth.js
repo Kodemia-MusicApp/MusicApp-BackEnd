@@ -28,6 +28,7 @@ router.post("/login/musician", async (req, res, next) => {
             lastname: retrievedUser.lastname,
             secondlastname: retrievedUser.secondlastname,
             type: retrievedUser.tipoMusico,
+            state: retrievedUser.estado,
           },
         ],
       });
@@ -67,6 +68,7 @@ router.post("/login/clients", async (req, res, next) => {
             type: retrievedUser.tipo,
             lastname: retrievedUser.lastname,
             secondlastname: retrievedUser.secondlastname,
+            state: retrievedUser.estado,
           },
         ],
       });
@@ -101,6 +103,7 @@ router.post("/login/verify", authHandler, async (req, res, next) => {
             secondlastname: retrievedMusician.secondlastname,
             type: retrievedMusician.tipoMusico,
             imagenusuario: retrievedMusician.imagenMusico,
+            state: retrievedMusician.estado,
           },
         ],
       });
@@ -115,6 +118,7 @@ router.post("/login/verify", authHandler, async (req, res, next) => {
             secondlastname: retrievedCLient.secondlastname,
             type: retrievedCLient.tipoMusico,
             imagenusuario: retrievedCLient.imagenusuario,
+            state: retrievedCLient.estado,
           },
         ],
       });
