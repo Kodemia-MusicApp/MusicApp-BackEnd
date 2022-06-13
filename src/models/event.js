@@ -12,7 +12,7 @@ const schema = new Schema({
   horaFinalizacion: { type: String, required: false },
   pago: { type: String, required: false },
   aceptado: { type: Boolean, required: false, default: false },
-  calcelado: { type: Boolean, required: false, default: false },
+  cancelado: { type: Boolean, required: false, default: false },
   pagoAceptado: { type: Boolean, required: false, default: false },
   clienteId: [
     {

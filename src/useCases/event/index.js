@@ -67,6 +67,9 @@ const getEventByClient = async (id) => {
       const objEvent = {
         titulo: event.titulo,
         aceptado: event.aceptado,
+        fechaInicio: event.fechaInicio,
+        fechaFinalizacion: event.fechaFinalizacion,
+        cancelado: event.cancelado,
       };
       events.push(objEvent);
     }
