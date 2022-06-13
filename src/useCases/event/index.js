@@ -11,7 +11,10 @@ const create = async (
   pago,
   clienteId,
   musicoId,
-  aceptado
+  colonia,
+  calle,
+  numero,
+  ciudad
 ) => {
   const event = new Event({
     titulo,
@@ -24,7 +27,10 @@ const create = async (
     pago,
     clienteId,
     musicoId,
-    aceptado,
+    colonia,
+    calle,
+    numero,
+    ciudad,
   });
   return await event.save();
 };

@@ -87,6 +87,10 @@ router.post("/", authHandler, async (req, res, next) => {
       horaFinalizacion,
       pago,
       musicoId,
+      colonia,
+      calle,
+      numero,
+      ciudad,
     } = req.body;
     const { clienteId } = { clienteId: _id };
     const eventCreated = await Event.create(
@@ -99,7 +103,11 @@ router.post("/", authHandler, async (req, res, next) => {
       horaFinalizacion,
       pago,
       clienteId,
-      musicoId
+      musicoId,
+      colonia,
+      calle,
+      numero,
+      ciudad
     );
     res.json({
       success: true,
@@ -107,6 +115,9 @@ router.post("/", authHandler, async (req, res, next) => {
       payload: eventCreated,
     });
   } catch (error) {
+    res.json({
+      success: false,
+    });
     next(error);
   }
 });
@@ -123,6 +134,10 @@ router.put("/", async (req, res, next) => {
       fechaFinalizacion,
       horaFinalizacion,
       pago,
+      colonia,
+      calle,
+      numero,
+      ciudad,
     } = req.body;
     const updatedEvent = await Event.update(_id, {
       titulo,
@@ -133,6 +148,10 @@ router.put("/", async (req, res, next) => {
       fechaFinalizacion,
       horaFinalizacion,
       pago,
+      colonia,
+      calle,
+      numero,
+      ciudad,
     });
     res.json({
       success: true,
