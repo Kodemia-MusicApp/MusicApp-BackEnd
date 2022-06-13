@@ -60,6 +60,10 @@ const getEventByClient = async (id) => {
       match: { _id: id },
       select: "name lastname secondlastname",
     })
+    .populate({
+      path: "musicoId",
+      select: "nombreArtistico",
+    })
     .exec();
   //const event2 = await Event.find({ clienteId: id }).exec();
   event.map((event) => {
@@ -70,6 +74,7 @@ const getEventByClient = async (id) => {
         fechaInicio: event.fechaInicio,
         fechaFinalizacion: event.fechaFinalizacion,
         cancelado: event.cancelado,
+        nombreArtistico: event.musicoId[0].nombreArtistico,
       };
       events.push(objEvent);
     }
