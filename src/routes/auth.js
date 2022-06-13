@@ -116,7 +116,7 @@ router.post("/login/verify", authHandler, async (req, res, next) => {
             name: retrievedCLient.name,
             lastname: retrievedCLient.lastname,
             secondlastname: retrievedCLient.secondlastname,
-            type: retrievedCLient.tipoMusico,
+            type: retrievedCLient.tipo,
             imagenusuario: retrievedCLient.imagenusuario,
             state: retrievedCLient.estado,
           },
