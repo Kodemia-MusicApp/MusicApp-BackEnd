@@ -3,9 +3,9 @@ const Schema = mongoose.Schema;
 const Double = require("@mongoosejs/double");
 
 const schema = new Schema({
-  titulo: { type: String, required: true },
-  localizacion: { type: String, required: true },
-  descripcion: { type: String, required: true },
+  titulo: { type: String, required: false },
+  localizacion: { type: String, required: false },
+  descripcion: { type: String, required: false },
   fechaInicio: { type: Date, required: true },
   horaInicio: { type: String, required: false },
   fechaFinalizacion: { type: Date, required: true },
@@ -26,6 +26,10 @@ const schema = new Schema({
       ref: "musicos",
     },
   ],
+  colonia: { type: String, required: true },
+  calle: { type: String, required: true },
+  numero: { type: String, required: true },
+  ciudad: { type: String, required: true },
 });
 
 module.exports = {
