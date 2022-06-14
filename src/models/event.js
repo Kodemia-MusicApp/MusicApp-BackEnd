@@ -13,6 +13,7 @@ const schema = new Schema({
   pago: { type: String, required: false },
   aceptado: { type: Boolean, required: false, default: false },
   cancelado: { type: Boolean, required: false, default: false },
+  eventoTerminado: { type: Boolean, required: false, default: false },
   pagoAceptado: { type: Boolean, required: false, default: false },
   clienteId: [
     {

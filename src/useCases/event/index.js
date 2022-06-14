@@ -97,7 +97,7 @@ const getEventByMusician = async (id) => {
       select: "name lastname secondlastname",
     })
     .exec();
-
+  //agregar eventoTerminado!=true
   event.map((event) => {
     if (event.musicoId != "" && event.musicoId[0].id == id) {
       const objEvent = {
@@ -111,11 +111,12 @@ const getEventByMusician = async (id) => {
         horaFinalizacion: event.horaFinalizacion,
         pago: event.pago,
         nameClient: event.clienteId[0].name,
+        aceptado: event.aceptado,
+        cancelado: event.cancelado,
       };
       events.push(objEvent);
     }
   });
-  // console.log(events);
   return events;
 };
 
