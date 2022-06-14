@@ -118,6 +118,10 @@ const getEventByMusician = async (id) => {
         horaFinalizacion: event.horaFinalizacion,
         pago: event.pago,
         nameClient: event.clienteId[0].name,
+        colonia: event.colonia,
+        calle: event.calle,
+        numero: event.numero,
+        ciudad: event.ciudad,
       };
       events.push(objEvent);
     }
