@@ -48,8 +48,25 @@ const getAll = async () => {
     .exec();
 };
 const eventPayment = async (id) => {
-  const event = Event.find({ clienteId: id }).exec();
-  return event;
+  const events = [];
+  const event = await Event.find({ clienteId: id }).exec();
+  event.map((event) => {
+    console.log();
+    if (event.aceptado === true) {
+      events.push({
+        _id: event._id,
+        titulo: event.titulo,
+        descripcion: event.descripcion,
+        fechaInicio: event.fechaInicio,
+        fechaFinalizacion: event.fechaFinalizacion,
+        colonia: event.colonia,
+        calle: event.calle,
+        numero: event.numero,
+        ciudad: event.ciudad,
+      });
+    }
+  });
+  return events;
 };
 
 const getEventByClient = async (id) => {
@@ -129,16 +146,6 @@ const getEventByMusician = async (id) => {
   return events;
 };
 
-const checkEventAccept = async (id) => {
-  const findEvent = await Event.find({ clienteId: id }).exec();
-  let acceptedEvent;
-  findEvent.map((event) => {
-    if (event.aceptado === true) acceptedEvent = true;
-    else acceptedEvent = false;
-  });
-  return acceptedEvent;
-};
-
 const getAllEventByClient = async (id) => {
   return await Event.findById(id).populate("clientes").exec();
 };
@@ -157,6 +164,17 @@ const del = async (id) => {
 const patch = async (id, event) => {
   console.log(id);
   return await Event.findByIdAndUpdate(id, { ...event }).exec();
+};
+
+const checkEventAccept = async (id) => {
+  const findEvent = await Event.find({ clienteId: id }).exec();
+  let acceptedEvent;
+  findEvent.map((event) => {
+    if (event.aceptado === true && event.eventoTerminado != true)
+      acceptedEvent = true;
+    else acceptedEvent = false;
+  });
+  return acceptedEvent;
 };
 
 module.exports = {
