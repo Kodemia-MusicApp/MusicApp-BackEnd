@@ -103,6 +103,7 @@ router.get("/", authHandler, async (req, res, next) => {
   try {
     const { _id } = req.params.tokenPayload;
     const getById = await musician.getById(_id);
+    console.log(getById);
     res.json({
       message: "Success",
       payload: [
@@ -117,10 +118,10 @@ router.get("/", authHandler, async (req, res, next) => {
           tipoMusico: getById.tipoMusico,
           cobroPorHora: getById.cobroPorHora,
           nombreArtistico: getById.nombreArtistico,
-          horarioDiaUno: getById.nombreArtistico,
-          horarioDiaDos: getById.nombreArtistico,
-          horarioInicio: getById.nombreArtistico,
-          horarioFin: getById.nombreArtistico,
+          horarioDiaUno: musician.horarioDiaUno,
+          horarioDiaDos: musician.horarioDiaDos,
+          horarioInicio: musician.horarioInicio,
+          horarioFin: musician.horarioFin,
           state: getById.estado,
         },
       ],
