@@ -3,14 +3,14 @@ const Schema = mongoose.Schema;
 const Double = require("@mongoosejs/double");
 
 const schema = new Schema({
-  titulo: { type: String, required: false },
-  localizacion: { type: String, required: false },
-  descripcion: { type: String, required: false },
+  titulo: { type: String, required: false, default: "" },
+  localizacion: { type: String, required: false, default: "" },
+  descripcion: { type: String, required: false, default: "" },
   fechaInicio: { type: Date, required: true },
   horaInicio: { type: String, required: false },
   fechaFinalizacion: { type: Date, required: true },
   horaFinalizacion: { type: String, required: false },
-  pago: { type: String, required: false },
+  pago: { type: String, required: false, default: "" },
   aceptado: { type: Boolean, required: false, default: false },
   cancelado: { type: Boolean, required: false, default: false },
   eventoTerminado: { type: Boolean, required: false, default: false },
