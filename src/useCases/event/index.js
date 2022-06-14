@@ -97,9 +97,16 @@ const getEventByMusician = async (id) => {
       select: "name lastname secondlastname",
     })
     .exec();
-  //agregar eventoTerminado!=true
+  //agregar eventoTerminado!=true  && aceptado!=true
+  //
+
   event.map((event) => {
-    if (event.musicoId != "" && event.musicoId[0].id == id) {
+    if (
+      event.musicoId != "" &&
+      event.musicoId[0].id == id &&
+      event.aceptado != true &&
+      event.eventoTerminado != true
+    ) {
       const objEvent = {
         _id: event._id,
         titulo: event.titulo,
@@ -111,8 +118,6 @@ const getEventByMusician = async (id) => {
         horaFinalizacion: event.horaFinalizacion,
         pago: event.pago,
         nameClient: event.clienteId[0].name,
-        aceptado: event.aceptado,
-        cancelado: event.cancelado,
       };
       events.push(objEvent);
     }
