@@ -54,8 +54,7 @@ const executePayment = (req, res) => {
     (err, response) => {
       try {
         const paymantCreate = payment.create(response.body);
-        //res.redirect(`${process.env.URL_FRONT_END}/payment/accepted`);
-        console.log(response.body.purchase_units[0].reference_id);
+        res.redirect(`${process.env.URL_FRONT_END}/payment/accepted`);
         res.json({ success: true, payload: response.body });
         const eventPayment = event.update(
           response.body.purchase_units[0].reference_id,
