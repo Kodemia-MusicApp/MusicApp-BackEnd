@@ -129,6 +129,16 @@ const getEventByMusician = async (id) => {
   return events;
 };
 
+const checkEventAccept = async (id) => {
+  const findEvent = await Event.find({ clienteId: id }).exec();
+  let acceptedEvent;
+  findEvent.map((event) => {
+    if (event.aceptado === true) acceptedEvent = true;
+    else acceptedEvent = false;
+  });
+  return acceptedEvent;
+};
+
 const getAllEventByClient = async (id) => {
   return await Event.findById(id).populate("clientes").exec();
 };
@@ -159,4 +169,5 @@ module.exports = {
   getEventByClient,
   getEventByMusician,
   eventPayment,
+  checkEventAccept,
 };

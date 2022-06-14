@@ -51,6 +51,21 @@ router.get("/musician", authHandler, async (req, res, next) => {
   }
 });
 
+router.get("/client/eventAccept", authHandler, async (req, res, next) => {
+  try {
+    const { _id } = req.params.tokenPayload;
+    const eventAccept = await Event.checkEventAccept(_id);
+    res.json({
+      success: true,
+      payload: eventAccept,
+    });
+  } catch (error) {
+    res.json({
+      success: false,
+    });
+  }
+});
+
 router.patch("/update/:id", authHandler, async (req, res, next) => {
   try {
     const { _id } = req.params.tokenPayload;
