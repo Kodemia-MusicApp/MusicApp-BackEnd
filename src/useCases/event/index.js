@@ -96,6 +96,11 @@ const getEventByClient = async (id) => {
         cancelado: event.cancelado,
         nombreArtistico: event.musicoId[0].nombreArtistico,
         imagenMusico: event.musicoId[0].imagenMusico,
+        pagoAceptado: event.pagoAceptado,
+        colonia: event.colonia,
+        calle: event.calle,
+        numero: event.numero,
+        ciudad: event.ciudad,
       };
       events.push(objEvent);
     }
