@@ -102,6 +102,9 @@ const getEventByClient = async (id) => {
         numero: event.numero,
         ciudad: event.ciudad,
         _id: event._id,
+        eventoTerminado: event.eventoTerminado,
+        cancelado: event.cancelado,
+        pago: event.pago,
       };
       events.push(objEvent);
     }
