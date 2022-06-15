@@ -101,6 +101,7 @@ const getEventByClient = async (id) => {
         calle: event.calle,
         numero: event.numero,
         ciudad: event.ciudad,
+        _id: event._id,
       };
       events.push(objEvent);
     }
