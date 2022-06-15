@@ -1,5 +1,4 @@
 const router = require("express").Router();
-const { json } = require("express/lib/response");
 const request = require("request");
 const api = require("../lib/config");
 const payment = require("../useCases/pagos");
@@ -55,7 +54,6 @@ const executePayment = (req, res) => {
       try {
         const paymantCreate = payment.create(response.body);
         res.redirect(`${process.env.URL_FRONT_END}/payment/accepted`);
-        res.json({ success: true, payload: response.body });
         const eventPayment = event.update(
           response.body.purchase_units[0].reference_id,
           { pagoAceptado: true }

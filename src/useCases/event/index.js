@@ -63,6 +63,9 @@ const eventPayment = async (id) => {
         calle: event.calle,
         numero: event.numero,
         ciudad: event.ciudad,
+        aceptado: event.aceptado,
+        pagoAceptado: event.pagoAceptado,
+        descripcion: event.descripcion,
       });
     }
   });
@@ -165,12 +168,12 @@ const patch = async (id, event) => {
   console.log(id);
   return await Event.findByIdAndUpdate(id, { ...event }).exec();
 };
-
+//event.eventoTerminado != true &&
 const checkEventAccept = async (id) => {
   const findEvent = await Event.find({ clienteId: id }).exec();
   let acceptedEvent;
   findEvent.map((event) => {
-    if (event.aceptado === true && event.eventoTerminado != true)
+    if (event.aceptado === true && event.pagoAceptado !== true)
       acceptedEvent = true;
     else acceptedEvent = false;
   });
