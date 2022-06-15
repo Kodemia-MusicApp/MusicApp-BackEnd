@@ -56,7 +56,22 @@ router.get("/client/eventAccept", authHandler, async (req, res, next) => {
     const { _id } = req.params.tokenPayload;
     const eventAccept = await Event.checkEventAccept(_id);
     res.json({
-      success: true,
+      success: eventAccept,
+      payload: eventAccept,
+    });
+  } catch (error) {
+    res.json({
+      success: false,
+    });
+  }
+});
+
+router.get("/musician/newEvent", authHandler, async (req, res, next) => {
+  try {
+    const { _id } = req.params.tokenPayload;
+    const eventAccept = await Event.checkNewEvents(_id);
+    res.json({
+      success: eventAccept,
       payload: eventAccept,
     });
   } catch (error) {

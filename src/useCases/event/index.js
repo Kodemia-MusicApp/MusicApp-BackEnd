@@ -180,13 +180,26 @@ const patch = async (id, event) => {
 };
 //event.eventoTerminado != true &&
 const checkEventAccept = async (id) => {
-  const findEvent = await Event.find({ clienteId: id }).exec();
+  const findEvent = await Event.find({ clienteId: id })
+    .find({ aceptado: true })
+    .find({ pagoAceptado: false })
+    .exec();
   let acceptedEvent;
-  findEvent.map((event) => {
-    if (event.aceptado === true && event.pagoAceptado !== true)
-      acceptedEvent = true;
-    else acceptedEvent = false;
-  });
+  if (findEvent.length > 0) acceptedEvent = true;
+  else acceptedEvent = false;
+
+  return acceptedEvent;
+};
+
+const checkNewEvents = async (id) => {
+  const findEvent = await Event.find({ musicoId: id })
+    .find({ aceptado: false })
+    .find({ pagoAceptado: false })
+    .exec();
+  let acceptedEvent;
+  if (findEvent.length > 0) acceptedEvent = true;
+  else acceptedEvent = false;
+
   return acceptedEvent;
 };
 
@@ -201,4 +214,5 @@ module.exports = {
   getEventByMusician,
   eventPayment,
   checkEventAccept,
+  checkNewEvents,
 };
