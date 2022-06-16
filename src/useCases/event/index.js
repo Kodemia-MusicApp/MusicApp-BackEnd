@@ -196,7 +196,9 @@ const checkNewEvents = async (id) => {
   const findEvent = await Event.find({ musicoId: id })
     .find({ aceptado: false })
     .find({ pagoAceptado: false })
+    .find({ cancelado: false })
     .exec();
+  console.log(findEvent);
   let acceptedEvent;
   if (findEvent.length > 0) acceptedEvent = true;
   else acceptedEvent = false;
