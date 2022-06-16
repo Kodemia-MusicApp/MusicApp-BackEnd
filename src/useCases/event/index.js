@@ -135,7 +135,8 @@ const getEventByMusician = async (id) => {
       event.musicoId != "" &&
       event.musicoId[0].id == id &&
       event.aceptado != true &&
-      event.eventoTerminado != true
+      event.eventoTerminado != true &&
+      event.cancelado != true
     ) {
       const objEvent = {
         _id: event._id,
