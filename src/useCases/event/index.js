@@ -150,8 +150,7 @@ const patch = async (id, event) => {
 //event.eventoTerminado != true &&
 const checkEventAccept = async (id) => {
   const findEvent = await Event.find({ clienteId: id })
-    .find({ aceptado: true })
-    .find({ pagoAceptado: false })
+    .find({ status: "aceptado" })
     .exec();
   let acceptedEvent;
   if (findEvent.length > 0) acceptedEvent = true;
@@ -162,9 +161,8 @@ const checkEventAccept = async (id) => {
 
 const checkNewEvents = async (id) => {
   const findEvent = await Event.find({ musicoId: id })
-    .find({ aceptado: false })
-    .find({ pagoAceptado: false })
-    .find({ cancelado: false })
+    .find({ status: "Create" })
+
     .exec();
   let acceptedEvent;
   if (findEvent.length > 0) acceptedEvent = true;
