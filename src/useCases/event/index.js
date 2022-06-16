@@ -87,7 +87,13 @@ const getEventByClient = async (id) => {
     .exec();
   //const event2 = await Event.find({ clienteId: id }).exec();
   event.map((event) => {
-    if (event.clienteId != "" && event.clienteId[0].id == id) {
+    if (
+      event.clienteId != "" &&
+      event.clienteId[0].id == id &&
+      event.aceptado === true &&
+      event.pagoAceptado === false &&
+      event.cancelado === false
+    ) {
       const objEvent = {
         titulo: event.titulo,
         aceptado: event.aceptado,
