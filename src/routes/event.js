@@ -4,12 +4,57 @@ const Event = require("../useCases/event");
 const { authHandler } = require("../middlewares/authHandler");
 const { musicianHandler } = require("../middlewares/clientHandler");
 
-router.get("/", authHandler, async (req, res, next) => {
+router.get("/client/:id", authHandler, async (req, res, next) => {
   try {
-    const events = await Event.getAll();
+    const { id } = req.params;
+    console.log(id);
+    const { _id } = req.params.tokenPayload;
+    //const events = await Event.getEventByClient(_id);
+    let events;
+    if (id === "eventAccept") {
+      events = await Event.checkEventAccept(_id);
+    }
+    if (id === "accepted") {
+      events = await Event.eventPayment(_id);
+    }
     res.json({
       success: true,
       payload: events,
+    });
+  } catch (error) {
+    res.json({
+      success: false,
+    });
+    next();
+  }
+});
+
+router.get("/musician/:id", authHandler, async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { _id } = req.params.tokenPayload;
+    let events;
+    if (id == "newEvent") {
+      events = await Event.checkNewEvents(_id);
+    }
+    //   const events = await Event.getEventByMusician(_id);
+    res.json({
+      success: true,
+      payload: events,
+    });
+  } catch (error) {
+    res.json({
+      success: false,
+    });
+    next();
+  }
+});
+
+router.get("/", authHandler, async (req, res, next) => {
+  try {
+    // const events = await Event.getAll();
+    res.json({
+      success: true,
     });
   } catch (error) {
     res.json({
@@ -19,7 +64,8 @@ router.get("/", authHandler, async (req, res, next) => {
   }
 });
 //aqui corregir
-router.get("/client/", authHandler, async (req, res, next) => {
+
+router.get("/client", authHandler, async (req, res, next) => {
   try {
     const { _id } = req.params.tokenPayload;
     const events = await Event.getEventByClient(_id);
@@ -50,22 +96,7 @@ router.get("/musician", authHandler, async (req, res, next) => {
     next();
   }
 });
-
-router.get("/client/eventAccept", authHandler, async (req, res, next) => {
-  try {
-    const { _id } = req.params.tokenPayload;
-    const eventAccept = await Event.checkEventAccept(_id);
-    res.json({
-      success: eventAccept,
-      payload: eventAccept,
-    });
-  } catch (error) {
-    res.json({
-      success: false,
-    });
-  }
-});
-
+/*
 router.get("/musician/newEvent", authHandler, async (req, res, next) => {
   try {
     const { _id } = req.params.tokenPayload;
@@ -79,7 +110,7 @@ router.get("/musician/newEvent", authHandler, async (req, res, next) => {
       success: false,
     });
   }
-});
+});*/
 
 router.patch("/update/:id", authHandler, async (req, res, next) => {
   try {
@@ -190,21 +221,6 @@ router.put("/", async (req, res, next) => {
     });
   } catch (error) {
     next(error);
-  }
-});
-
-router.get("/accepted", authHandler, async (req, res, next) => {
-  try {
-    const { _id } = req.params.tokenPayload;
-    const eventPayment = await Event.eventPayment(_id);
-    res.json({
-      success: true,
-      payload: eventPayment,
-    });
-  } catch (error) {
-    res.json({
-      success: false,
-    });
   }
 });
 

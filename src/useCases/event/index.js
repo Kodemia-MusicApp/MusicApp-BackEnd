@@ -51,7 +51,6 @@ const eventPayment = async (id) => {
   const events = [];
   const event = await Event.find({ clienteId: id }).exec();
   event.map((event) => {
-    console.log();
     if (event.aceptado === true) {
       events.push({
         _id: event._id,
@@ -120,50 +119,14 @@ const getEventByClient = async (id) => {
 };
 
 const getEventByMusician = async (id) => {
-  const events = [];
-
-  const event = await Event.find({})
-    .populate({
-      path: "musicoId",
-      match: { _id: id },
-      select: "name",
-    })
+  const event2 = await Event.find({ musicoId: id })
     .populate({
       path: "clienteId",
-      select: "name lastname secondlastname",
+      select: "name phone estado",
     })
     .exec();
-  //agregar eventoTerminado!=true  && aceptado!=true
-  //
 
-  event.map((event) => {
-    if (
-      event.musicoId != "" &&
-      event.musicoId[0].id == id &&
-      event.aceptado != true &&
-      event.eventoTerminado != true &&
-      event.cancelado != true
-    ) {
-      const objEvent = {
-        _id: event._id,
-        titulo: event.titulo,
-        localizacion: event.localizacion,
-        descripcion: event.descripcion,
-        fechaInicio: event.fechaInicio,
-        horaInicio: event.horaInicio,
-        fechaFinalizacion: event.fechaFinalizacion,
-        horaFinalizacion: event.horaFinalizacion,
-        pago: event.pago,
-        nameClient: event.clienteId[0].name,
-        colonia: event.colonia,
-        calle: event.calle,
-        numero: event.numero,
-        ciudad: event.ciudad,
-      };
-      events.push(objEvent);
-    }
-  });
-  return events;
+  return event2;
 };
 
 const getAllEventByClient = async (id) => {
@@ -182,7 +145,6 @@ const del = async (id) => {
 };
 
 const patch = async (id, event) => {
-  console.log(id);
   return await Event.findByIdAndUpdate(id, { ...event }).exec();
 };
 //event.eventoTerminado != true &&
@@ -204,7 +166,6 @@ const checkNewEvents = async (id) => {
     .find({ pagoAceptado: false })
     .find({ cancelado: false })
     .exec();
-  console.log(findEvent);
   let acceptedEvent;
   if (findEvent.length > 0) acceptedEvent = true;
   else acceptedEvent = false;

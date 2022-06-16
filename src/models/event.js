@@ -15,6 +15,7 @@ const schema = new Schema({
   cancelado: { type: Boolean, required: false, default: false },
   eventoTerminado: { type: Boolean, required: false, default: false },
   pagoAceptado: { type: Boolean, required: false, default: false },
+  status: { type: String, required: false, default: "Create" },
   clienteId: [
     {
       type: Schema.Types.ObjectId,
