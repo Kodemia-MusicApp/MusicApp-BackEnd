@@ -48,27 +48,27 @@ const getAll = async () => {
     .exec();
 };
 const eventPayment = async (id) => {
-  const events = [];
-  const event = await Event.find({ clienteId: id }).exec();
-  event.map((event) => {
-    if (event.aceptado === true) {
-      events.push({
-        _id: event._id,
-        titulo: event.titulo,
-        descripcion: event.descripcion,
-        fechaInicio: event.fechaInicio,
-        fechaFinalizacion: event.fechaFinalizacion,
-        colonia: event.colonia,
-        calle: event.calle,
-        numero: event.numero,
-        ciudad: event.ciudad,
-        aceptado: event.aceptado,
-        pagoAceptado: event.pagoAceptado,
-        descripcion: event.descripcion,
-      });
-    }
-  });
-  return events;
+  const event = await Event.find({ clienteId: id })
+    .find({ status: "aceptado" })
+    .populate({
+      path: "musicoId",
+      select: "nombreArtistico imagenMusico",
+    })
+    .exec();
+
+  return event;
+};
+
+const eventProgress = async (id) => {
+  const event = await Event.find({ clienteId: id })
+    .find({ status: "pagado" })
+    .populate({
+      path: "musicoId",
+      select: "nombreArtistico imagenMusico",
+    })
+    .exec();
+
+  return event;
 };
 
 const getEventByClient = async (id) => {
@@ -115,7 +115,14 @@ const getEventByClient = async (id) => {
       events.push(objEvent);
     }
   });
-  return events;
+  const event2 = await Event.find({ clienteId: id })
+    .populate({
+      path: "musicoId",
+      select: "name phone estado",
+    })
+    .exec();
+  console.log(event2);
+  return event2;
 };
 
 const getEventByMusician = async (id) => {
@@ -183,4 +190,5 @@ module.exports = {
   eventPayment,
   checkEventAccept,
   checkNewEvents,
+  eventProgress,
 };

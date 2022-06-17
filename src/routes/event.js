@@ -7,7 +7,6 @@ const { musicianHandler } = require("../middlewares/clientHandler");
 router.get("/client/:id", authHandler, async (req, res, next) => {
   try {
     const { id } = req.params;
-    console.log(id);
     const { _id } = req.params.tokenPayload;
     //const events = await Event.getEventByClient(_id);
     let events;
@@ -16,6 +15,9 @@ router.get("/client/:id", authHandler, async (req, res, next) => {
     }
     if (id === "accepted") {
       events = await Event.eventPayment(_id);
+    }
+    if (id === "progress") {
+      events = await Event.eventProgress(id);
     }
     res.json({
       success: true,

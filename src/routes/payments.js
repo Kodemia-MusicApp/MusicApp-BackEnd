@@ -56,7 +56,7 @@ const executePayment = (req, res) => {
         res.redirect(`${process.env.URL_FRONT_END}/payment/accepted`);
         const eventPayment = event.update(
           response.body.purchase_units[0].reference_id,
-          { pagoAceptado: true }
+          { status: "pagado" }
         );
       } catch (error) {
         res.json({ success: false });
