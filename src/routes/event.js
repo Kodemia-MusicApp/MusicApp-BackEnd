@@ -17,7 +17,7 @@ router.get("/client/:id", authHandler, async (req, res, next) => {
       events = await Event.eventPayment(_id);
     }
     if (id === "progress") {
-      events = await Event.eventProgress(id);
+      events = await Event.eventProgress(_id);
     }
     res.json({
       success: true,

@@ -67,7 +67,7 @@ const eventProgress = async (id) => {
       select: "nombreArtistico imagenMusico",
     })
     .exec();
-
+  console.log(event);
   return event;
 };
 
