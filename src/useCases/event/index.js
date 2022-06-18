@@ -127,6 +127,7 @@ const getEventByClient = async (id) => {
 
 const getEventByMusician = async (id) => {
   const event2 = await Event.find({ musicoId: id })
+    .find({ status: "Create" })
     .populate({
       path: "clienteId",
       select: "name phone estado",
@@ -162,7 +163,7 @@ const checkEventAccept = async (id) => {
   let acceptedEvent;
   if (findEvent.length > 0) acceptedEvent = true;
   else acceptedEvent = false;
-
+  console.log("findEvent: ", findEvent);
   return acceptedEvent;
 };
 
