@@ -109,8 +109,9 @@ router.get("/", authHandler, async (req, res, next) => {
       payload: [
         {
           id: getById._id,
-          apellidoPaterno: getById.apellidoPaterno,
-          apellidoMaterno: getById.apellidoMaterno,
+          name: getById.name,
+          apellidoPaterno: getById.lastname,
+          apellidoMaterno: getById.secondlastname,
           telefono: getById.numeroTelefono,
           imagenMusico: getById.imagenMusico,
           descripcion: getById.descripcion,

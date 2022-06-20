@@ -67,61 +67,18 @@ const eventProgress = async (id) => {
       select: "nombreArtistico imagenMusico",
     })
     .exec();
-  console.log(event);
+
   return event;
 };
 
 const getEventByClient = async (id) => {
-  const events = [];
-  const event = await Event.find({})
-    .populate({
-      path: "clienteId",
-      match: { _id: id },
-      select: "name lastname secondlastname",
-    })
-    .populate({
-      path: "musicoId",
-      select: "nombreArtistico imagenMusico",
-    })
-    .exec();
-  //const event2 = await Event.find({ clienteId: id }).exec();
-  event.map((event) => {
-    if (
-      event.clienteId != "" &&
-      event.clienteId[0].id == id &&
-      event.aceptado === true &&
-      event.pagoAceptado === false &&
-      event.cancelado === false
-    ) {
-      const objEvent = {
-        titulo: event.titulo,
-        aceptado: event.aceptado,
-        fechaInicio: event.fechaInicio,
-        fechaFinalizacion: event.fechaFinalizacion,
-        cancelado: event.cancelado,
-        nombreArtistico: event.musicoId[0].nombreArtistico,
-        imagenMusico: event.musicoId[0].imagenMusico,
-        pagoAceptado: event.pagoAceptado,
-        colonia: event.colonia,
-        calle: event.calle,
-        numero: event.numero,
-        ciudad: event.ciudad,
-        _id: event._id,
-        eventoTerminado: event.eventoTerminado,
-        cancelado: event.cancelado,
-        pago: event.pago,
-        descripcion: event.descripcion,
-      };
-      events.push(objEvent);
-    }
-  });
   const event2 = await Event.find({ clienteId: id })
     .populate({
       path: "musicoId",
       select: "name phone estado",
     })
     .exec();
-  console.log(event2);
+
   return event2;
 };
 
@@ -163,7 +120,7 @@ const checkEventAccept = async (id) => {
   let acceptedEvent;
   if (findEvent.length > 0) acceptedEvent = true;
   else acceptedEvent = false;
-  console.log("findEvent: ", findEvent);
+
   return acceptedEvent;
 };
 
