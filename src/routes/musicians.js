@@ -103,7 +103,7 @@ router.get("/", authHandler, async (req, res, next) => {
   try {
     const { _id } = req.params.tokenPayload;
     const getById = await musician.getById(_id);
-    console.log(getById);
+
     res.json({
       message: "Success",
       payload: [
@@ -189,9 +189,7 @@ router.delete("/:correo", authHandler, async (req, res, next) => {
     res.json({
       succes: true,
     });
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 });
 
 module.exports = router;

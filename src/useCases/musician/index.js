@@ -55,7 +55,8 @@ const getByEmail = async (correo) => {
 };
 
 const patch = async (correo, musicianData) => {
-  return await Musicians.findOneAndUpdate(correo, { ...musicianData })
+  console.log(correo);
+  return await Musicians.findByIdAndUpdate(correo, { ...musicianData })
     .exec()
     .catch((error) => console.log(error));
 };
