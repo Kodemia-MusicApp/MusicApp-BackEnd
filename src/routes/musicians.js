@@ -173,7 +173,7 @@ router.patch("/", authHandler, async (req, res, next) => {
     const { _id } = req.params.tokenPayload;
     const updateMusician = await musician.patch(_id, { ...req.body });
     res.json({
-      succes: true,
+      success: true,
     });
   } catch (error) {
     res.json({
