@@ -110,8 +110,8 @@ router.get("/", authHandler, async (req, res, next) => {
         {
           id: getById._id,
           name: getById.name,
-          apellidoPaterno: getById.lastname,
-          apellidoMaterno: getById.secondlastname,
+          lastname: getById.lastname,
+          secondlastname: getById.secondlastname,
           telefono: getById.numeroTelefono,
           imagenMusico: getById.imagenMusico,
           descripcion: getById.descripcion,
