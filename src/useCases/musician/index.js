@@ -16,7 +16,9 @@ const creaMusico = async (
   horarioDiaDos,
   horarioInicio,
   horarioFin,
-  cobroPorHora
+  cobroPorHora,
+  estado,
+  municipio
 ) => {
   const hash = await encrypt.hashPasword(password);
   const creaMusician = new Musicians({
@@ -35,6 +37,8 @@ const creaMusico = async (
     horarioInicio,
     horarioFin,
     cobroPorHora,
+    estado,
+    municipio,
   });
   return await creaMusician.save();
 };

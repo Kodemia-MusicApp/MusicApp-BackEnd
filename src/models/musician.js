@@ -13,7 +13,6 @@ const schema = new Schema({
   tipoMusico: { type: String, required: false, default: "Musico" },
   genero: { type: String, required: false, default: "versatil" },
   phone: { type: Number, required: false, default: 44 },
-  estado: { type: String, required: false, default: "CDMX" },
   nombreArtistico: { type: String, required: false, default: "" },
   horarioDiaUno: { type: String, required: false, default: "Lunes" },
   horarioDiaDos: { type: String, required: false, default: "Domingo" },
@@ -26,6 +25,8 @@ const schema = new Schema({
     default:
       "https://previews.123rf.com/images/thesomeday123/thesomeday1231709/thesomeday123170900021/85622928-icono-de-perfil-de-avatar-predeterminado-marcador-de-posici%C3%B3n-de-foto-gris-vectores-de-ilustraciones.jpg?fj=1",
   },
+  estado: { type: String, required: false, default: "CDMX" },
+  municipio: { type: String, required: false, default: "CDMX" },
 });
 
 module.exports = {

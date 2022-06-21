@@ -22,6 +22,8 @@ router.post("/", async (req, res, next) => {
       horarioInicio,
       horarioFin,
       cobroPorHora,
+      estado,
+      municipio,
     } = req.body;
     const creaMusician = await musician.creaMusico(
       nombre,
@@ -38,7 +40,9 @@ router.post("/", async (req, res, next) => {
       horarioDiaDos,
       horarioInicio,
       horarioFin,
-      cobroPorHora
+      cobroPorHora,
+      estado,
+      municipio
     );
     const userId = await musician.getByEmail(correo);
     const token = await jwt.sign({
@@ -89,6 +93,7 @@ router.get("/id/:id", async (req, res, next) => {
           horarioInicio: getById.horarioInicio,
           horarioFin: getById.horarioFin,
           estado: getById.estado,
+          municipio: getById.municipio,
         },
       ],
     });
@@ -124,6 +129,7 @@ router.get("/", authHandler, async (req, res, next) => {
           horarioInicio: getById.horarioInicio,
           horarioFin: getById.horarioFin,
           state: getById.estado,
+          municipio: getById.municipio,
         },
       ],
     });
@@ -155,6 +161,7 @@ router.get("/all", async (req, res, next) => {
         horarioFin: musician.horarioFin,
         cobroPorHora: musician.cobroPorHora,
         estado: musician.estado,
+        municipio: musician.municipio,
       };
     });
     res.json({

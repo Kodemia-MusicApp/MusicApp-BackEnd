@@ -18,7 +18,8 @@ const create = async (
   email,
   phone,
   paymentmethod,
-  estado
+  estado,
+  municipio
 ) => {
   const hash = await encrypt.hashPasword(password);
   const cliente = new Cliente({
@@ -30,6 +31,7 @@ const create = async (
     phone,
     paymentmethod,
     estado,
+    municipio,
   });
   return await cliente.save();
 };

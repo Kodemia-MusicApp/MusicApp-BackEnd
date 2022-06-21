@@ -22,6 +22,7 @@ router.get("/", authHandler, clientHandler, async (req, res, next) => {
           phone: retrievedCLient.phone,
           type: retrievedCLient.tipo,
           state: retrievedCLient.estado,
+          municipio: retrievedCLient.municipio,
         },
       ],
     });
@@ -59,6 +60,7 @@ router.post("/", async (req, res, next) => {
       phone,
       paymentmethod,
       estado,
+      municipio,
     } = req.body;
     console.log(req.body);
     const clientCreated = await cliente.create(
@@ -69,7 +71,8 @@ router.post("/", async (req, res, next) => {
       email,
       phone,
       paymentmethod,
-      estado
+      estado,
+      municipio
     );
     const client = await cliente.getByEmail(email);
     const token = await jwt.sign({
@@ -88,6 +91,7 @@ router.post("/", async (req, res, next) => {
           lastname: client.lastname,
           secondlastname: client.secondlastname,
           state: client.estado,
+          municipio: client.municipio,
         },
       ],
     });
