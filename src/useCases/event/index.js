@@ -71,6 +71,18 @@ const eventProgress = async (id) => {
   return event;
 };
 
+const eventProgresMusician = async (id) => {
+  const event = await Event.find({ clienteId: id })
+    .find({ status: "pagado" })
+    .populate({
+      path: "clienteId",
+      select: "name phone estado",
+    })
+    .exec();
+
+  return event;
+};
+
 const getEventByClient = async (id) => {
   const event2 = await Event.find({ clienteId: id })
     .populate({
@@ -149,4 +161,5 @@ module.exports = {
   checkEventAccept,
   checkNewEvents,
   eventProgress,
+  eventProgresMusician,
 };

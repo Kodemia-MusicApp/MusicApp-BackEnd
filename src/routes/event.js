@@ -39,6 +39,9 @@ router.get("/musician/:id", authHandler, async (req, res, next) => {
     if (id == "newEvent") {
       events = await Event.checkNewEvents(_id);
     }
+    if (id === "progress") {
+      events = await Event.eventProgresMusician(_id);
+    }
     //   const events = await Event.getEventByMusician(_id);
     res.json({
       success: true,
