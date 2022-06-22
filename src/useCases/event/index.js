@@ -72,7 +72,7 @@ const eventProgress = async (id) => {
 };
 
 const eventProgresMusician = async (id) => {
-  const event = await Event.find({ clienteId: id })
+  const event = await Event.find({ musicoId: id })
     .find({ status: "pagado" })
     .populate({
       path: "clienteId",

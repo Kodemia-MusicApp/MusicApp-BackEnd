@@ -8,5 +8,5 @@ const schema = new Schema({
 
 module.exports = {
   schema,
-  model: mongoose.model("estado", schema),
+  model: mongoose.model("municipio", schema),
 };
