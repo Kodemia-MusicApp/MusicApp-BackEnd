@@ -53,6 +53,12 @@ const authenticate = async (cliente, password) => {
   const hash = cliente.password;
   return await encrypt.verifyPassword(password, hash);
 };
+
+const changePassword = async (id, password) => {
+  const hash = await encrypt.hashPasword(password);
+  return await Cliente.findByIdAndUpdate(id, { password: hash });
+};
+
 module.exports = {
   getAll,
   getById,
@@ -61,4 +67,5 @@ module.exports = {
   del,
   getByEmail,
   authenticate,
+  changePassword,
 };

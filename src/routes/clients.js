@@ -121,4 +121,15 @@ router.put("/", authHandler, clientHandler, async (req, res, next) => {
   }
 });
 
+router.patch("/password", authHandler, async (req, res, next) => {
+  try {
+    const { _id } = req.params.tokenPayload;
+    const { password } = req.body;
+    const changePassword = await cliente.changePassword(_id, password);
+    res.json({ success: true });
+  } catch (error) {
+    res.json({ success: false });
+  }
+});
+
 module.exports = router;
