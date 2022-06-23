@@ -47,6 +47,7 @@ const getAll = async () => {
       path: "musicoId",
       select: "name",
     })
+    .sort({ _id: -1 })
     .exec();
 };
 const eventPayment = async (id) => {
@@ -56,6 +57,7 @@ const eventPayment = async (id) => {
       path: "musicoId",
       select: "nombreArtistico imagenMusico",
     })
+    .sort({ _id: -1 })
     .exec();
 
   return event;
@@ -68,6 +70,7 @@ const eventProgress = async (id) => {
       path: "musicoId",
       select: "nombreArtistico imagenMusico",
     })
+    .sort({ _id: -1 })
     .exec();
 
   return event;
@@ -80,6 +83,7 @@ const eventProgresMusician = async (id) => {
       path: "clienteId",
       select: "name phone estado",
     })
+    .sort({ _id: -1 })
     .exec();
 
   return event;
@@ -91,6 +95,7 @@ const getEventByClient = async (id) => {
       path: "musicoId",
       select: "name phone estado",
     })
+    .sort({ _id: -1 })
     .exec();
 
   return event2;
@@ -103,13 +108,14 @@ const getEventByMusician = async (id) => {
       path: "clienteId",
       select: "name phone estado",
     })
+    .sort({ _id: -1 })
     .exec();
 
   return event2;
 };
 
 const getAllEventByClient = async (id) => {
-  return await Event.findById(id).populate("clientes").exec();
+  return await Event.findById(id).populate("clientes").sort({ _id: -1 }).exec();
 };
 
 const update = async (id, eventData) => {
