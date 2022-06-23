@@ -24,8 +24,8 @@ const createPayment = (req, res) => {
       brand_name: `tumusicoahora`,
       landing_page: "NO_PREFERENCE", // Default, para mas informacion https://developer.paypal.com/docs/api/orders/v2/#definition-order_application_context
       user_action: "PAY_NOW", // Accion para que en paypal muestre el monto del pago
-      return_url: `${process.env.URL_API_BACK_END}/execute-payment`, // Url despues de realizar el pago
-      cancel_url: `${process.env.URL_API_BACK_END}/cancel-payment`, // Url despues de realizar el pago
+      return_url: `${process.env.URL_API_BACK_END}/payment/execute-payment`, // Url despues de realizar el pago
+      cancel_url: `${process.env.URL_API_BACK_END}/payment/cancel-payment`, // Url despues de realizar el pago
     },
   };
   request.post(
@@ -53,9 +53,7 @@ const executePayment = (req, res) => {
     (err, response) => {
       try {
         const paymantCreate = payment.create(response.body);
-        res.redirect(
-          `${process.env.URL_FRONT_END}/payment/reservationaccepted`
-        );
+        res.redirect(`${process.env.URL_FRONT_END}/reservationaccepted`);
         const eventPayment = event.update(
           response.body.purchase_units[0].reference_id,
           { status: "pagado" }
