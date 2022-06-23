@@ -31,7 +31,8 @@ const schema = new Schema({
   colonia: { type: String, required: true },
   calle: { type: String, required: true },
   numero: { type: String, required: true },
-  ciudad: { type: String, required: true },
+  estado: { type: String, required: true },
+  municipio: { type: String, required: true },
 });
 
 module.exports = {

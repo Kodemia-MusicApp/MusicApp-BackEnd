@@ -156,8 +156,10 @@ router.post("/", authHandler, async (req, res, next) => {
       colonia,
       calle,
       numero,
-      ciudad,
+      estado,
+      municipio,
     } = req.body;
+
     const { clienteId } = { clienteId: _id };
     const eventCreated = await Event.create(
       titulo,
@@ -173,7 +175,8 @@ router.post("/", authHandler, async (req, res, next) => {
       colonia,
       calle,
       numero,
-      ciudad
+      estado,
+      municipio
     );
     res.json({
       success: true,
@@ -203,7 +206,8 @@ router.put("/", async (req, res, next) => {
       colonia,
       calle,
       numero,
-      ciudad,
+      estado,
+      municipio,
     } = req.body;
     const updatedEvent = await Event.update(_id, {
       titulo,
@@ -217,7 +221,8 @@ router.put("/", async (req, res, next) => {
       colonia,
       calle,
       numero,
-      ciudad,
+      estado,
+      municipio,
     });
     res.json({
       success: true,
