@@ -53,7 +53,9 @@ const executePayment = (req, res) => {
     (err, response) => {
       try {
         const paymantCreate = payment.create(response.body);
-        res.redirect(`${process.env.URL_FRONT_END}/reservationaccepted`);
+        res.redirect(
+          `${process.env.URL_FRONT_END}/payment/reservationaccepted`
+        );
         const eventPayment = event.update(
           response.body.purchase_units[0].reference_id,
           { status: "pagado" }
