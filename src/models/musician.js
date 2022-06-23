@@ -23,7 +23,7 @@ const schema = new Schema({
     type: String,
     required: false,
     default:
-      "https://previews.123rf.com/images/thesomeday123/thesomeday1231709/thesomeday123170900021/85622928-icono-de-perfil-de-avatar-predeterminado-marcador-de-posici%C3%B3n-de-foto-gris-vectores-de-ilustraciones.jpg?fj=1",
+      "https://images.unsplash.com/photo-1567021892994-278ad3f489f4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80",
   },
   estado: { type: String, required: false, default: "CDMX" },
   municipio: { type: String, required: false, default: "CDMX" },

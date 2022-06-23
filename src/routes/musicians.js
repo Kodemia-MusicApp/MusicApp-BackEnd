@@ -189,6 +189,21 @@ router.patch("/", authHandler, async (req, res, next) => {
   }
 });
 
+router.patch("/password", authHandler, async (req, res, next) => {
+  try {
+    const { _id } = req.params.tokenPayload;
+    const { password } = req.body;
+    const changePassword = await musician.changePassword(_id, password);
+    res.json({
+      success: true,
+    });
+  } catch (error) {
+    res.json({
+      success: false,
+    });
+  }
+});
+
 router.delete("/:correo", authHandler, async (req, res, next) => {
   try {
     const { correo } = req.params;

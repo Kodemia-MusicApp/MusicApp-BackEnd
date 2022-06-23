@@ -59,10 +59,12 @@ const getByEmail = async (correo) => {
 };
 
 const patch = async (correo, musicianData) => {
-  console.log(correo);
-  return await Musicians.findByIdAndUpdate(correo, { ...musicianData })
-    .exec()
-    .catch((error) => console.log(error));
+  return await Musicians.findByIdAndUpdate(correo, { ...musicianData }).exec();
+};
+
+const changePassword = async (id, password) => {
+  const hash = await encrypt.hashPasword(password);
+  return await Musicians.findByIdAndUpdate(id, { password: hash });
 };
 
 const del = async (correo) => {
@@ -82,4 +84,5 @@ module.exports = {
   authenticate,
   getById,
   getAll,
+  changePassword,
 };
