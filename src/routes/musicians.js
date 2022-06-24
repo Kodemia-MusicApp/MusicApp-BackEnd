@@ -24,6 +24,8 @@ router.post("/", async (req, res, next) => {
       cobroPorHora,
       estado,
       municipio,
+      colonia,
+      calle,
     } = req.body;
     const creaMusician = await musician.creaMusico(
       nombre,
@@ -42,7 +44,9 @@ router.post("/", async (req, res, next) => {
       horarioFin,
       cobroPorHora,
       estado,
-      municipio
+      municipio,
+      colonia,
+      calle
     );
     const userId = await musician.getByEmail(correo);
     const token = await jwt.sign({
