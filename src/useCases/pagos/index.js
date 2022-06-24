@@ -1,15 +1,11 @@
-//cambiar  client x pago
 const Pago = require("../../models/pagos").model;
 const encrypt = require("../../lib/encrypt");
-
 const getAll = async () => {
   return await Pago.find({}).exec();
 };
-
 const getById = async (id) => {
   return await Pago.findById(id).exec();
 };
-
 const create = async (payment) => {
   const pago = new Pago({
     id_evento: payment.purchase_units[0].reference_id,
@@ -43,21 +39,14 @@ const create = async (payment) => {
     payments_payer_email_address: payment.payer.email_address,
     payments_payer_id: payment.payer.payer_id,
   });
-
   return await pago.save();
 };
-
 const update = async (id, data) => {
   const userfound = await Pago.findByIdAndUpdate(id, ...data);
   return userfound;
 };
-
 const del = async (id) => {
   return await Pago.findByIdAndDelete(id);
 };
-
-//const del = async (id) => {
-//  return await Pago.findOneAndDelete(id).exec();
-//};
 
 module.exports = { getAll, getById, create, update, del };

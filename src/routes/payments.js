@@ -3,10 +3,8 @@ const request = require("request");
 const api = require("../lib/config");
 const payment = require("../useCases/pagos");
 const event = require("../useCases/event");
-//const config = require("../lib/config");
 
 const auth = { user: api.api.user, pass: api.api.secret };
-
 const createPayment = (req, res) => {
   const { price, custom_id } = req.body;
   const body = {
@@ -15,17 +13,17 @@ const createPayment = (req, res) => {
       {
         reference_id: `${custom_id}`,
         amount: {
-          currency_code: "MXN", //https://developer.paypal.com/docs/api/reference/currency-codes/
+          currency_code: "MXN",
           value: `${price}`,
         },
       },
     ],
     application_context: {
       brand_name: `tumusicoahora`,
-      landing_page: "NO_PREFERENCE", // Default, para mas informacion https://developer.paypal.com/docs/api/orders/v2/#definition-order_application_context
-      user_action: "PAY_NOW", // Accion para que en paypal muestre el monto del pago
-      return_url: `${process.env.URL_API_BACK_END}/payment/execute-payment`, // Url despues de realizar el pago
-      cancel_url: `${process.env.URL_API_BACK_END}/payment/cancel-payment`, // Url despues de realizar el pago
+      landing_page: "NO_PREFERENCE",
+      user_action: "PAY_NOW",
+      return_url: `${process.env.URL_API_BACK_END}/payment/execute-payment`,
+      cancel_url: `${process.env.URL_API_BACK_END}/payment/cancel-payment`,
     },
   };
   request.post(
@@ -40,9 +38,8 @@ const createPayment = (req, res) => {
     }
   );
 };
-
 const executePayment = (req, res) => {
-  const token = req.query.token; //<-----------
+  const token = req.query.token;
   request.post(
     `${api.api.paypal}/v2/checkout/orders/${token}/capture`,
     {
@@ -64,11 +61,9 @@ const executePayment = (req, res) => {
     }
   );
 };
-
 router.get(`/execute-payment`, executePayment);
 router.get(`/cancel-payment`, async (req, res, next) => {
   res.redirect(`${process.env.URL_FRONT_END}/payment/refused`);
 });
 router.post("/create-payments", createPayment);
-
 module.exports = router;
