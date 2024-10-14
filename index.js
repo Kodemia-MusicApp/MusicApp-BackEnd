@@ -6,7 +6,11 @@ const cors = require("cors");
 const apiRouter = require("./src/routes");
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: "https://slug-panel.onrender.com",
+  headers: ["Content-Type"],
+  credentials: true,
+}));
 apiRouter(app);
 const PORT = process.env.PORT;
 app.listen(PORT || 5000, () => {
