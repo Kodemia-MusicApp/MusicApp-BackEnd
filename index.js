@@ -7,8 +7,11 @@ const apiRouter = require("./src/routes");
 
 app.use(express.json());
 app.use(cors({
-  origin: /\.onrender\.com$/,
-  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",}
+  "origin": "*",
+  "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+  "preflightContinue": false,
+  "optionsSuccessStatus": 204
+}
 ));
 apiRouter(app);
 const PORT = process.env.PORT;
